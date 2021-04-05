@@ -1,10 +1,10 @@
-package com.king;
+package com;
 
 /**
  * @program: testSpring
  * @description:
  * @author: King
- * @create: 2021-04-04 14:45
+ * @create: 2021-04-04 20:52
  */
-public class aaa {
+public class Main {
 }

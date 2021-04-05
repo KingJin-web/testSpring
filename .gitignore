@@ -1,2 +1,4 @@
 # Project exclude paths
 /spring1_helloworld/target/
+*.exe
+*/target/

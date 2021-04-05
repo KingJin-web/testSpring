@@ -11,6 +11,7 @@
     <modules>
         <module>testHelloWorld</module>
         <module>spring1_helloworld</module>
+        <module>mybatis</module>
     </modules>
 
     <properties>
@@ -46,6 +47,14 @@
             <version>5.3.5</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.inject/javax.inject -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+
 
     </dependencies>
 

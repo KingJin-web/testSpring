@@ -7,8 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring1_helloworld" />
-        <module name="spring1_helloword" />
+        <module name="mybatis" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring1_helloword" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

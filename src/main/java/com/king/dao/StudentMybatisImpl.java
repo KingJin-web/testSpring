@@ -1,5 +1,8 @@
 package com.king.dao;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import java.util.Random;
 
 /**
@@ -8,6 +11,8 @@ import java.util.Random;
  * @author: King
  * @create: 2021-04-04 14:28
  */
+@Repository
+@Component
 public class StudentMybatisImpl implements StudentDao {
     @Override
     public int add(String name) {
