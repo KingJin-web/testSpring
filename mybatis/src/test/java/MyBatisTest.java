@@ -1,5 +1,3 @@
-package com.king.dao;
-
 /**
  * @program: testSpring
  * @description:
@@ -10,6 +8,8 @@ package com.king.dao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+
+import com.king.dao.MyUser;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

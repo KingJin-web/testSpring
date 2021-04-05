@@ -4,15 +4,25 @@ import com.king.AppConfig;
 import com.king.biz.HelloWorld;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import static org.junit.Assert.*;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = {AppConfig.class})
 public class HelloWorldTest {
+    @Autowired
     private ApplicationContext ac;
-    //
+    @Autowired
+    HelloWorld hw;
+    @Autowired
+    HelloWorld hw2;
+
     //ApplicationContext 基于注解的配置容器类
 
     @Before
@@ -26,9 +36,9 @@ public class HelloWorldTest {
 
     @Test
     public void hello() {
-        HelloWorld hw = (HelloWorld) ac.getBean("helloWorld");
+//        HelloWorld hw = (HelloWorld) ac.getBean("helloWorld");
         hw.Hello();
-        HelloWorld hw2 = (HelloWorld) ac.getBean("helloWorld");
+//        HelloWorld hw2 = (HelloWorld) ac.getBean("helloWorld");
         hw2.Hello();
         //spring 容器是单例模型
     }

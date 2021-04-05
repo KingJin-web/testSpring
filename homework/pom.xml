@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>spring1_helloworld</artifactId>
+    <artifactId>homework</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -39,5 +39,4 @@
 
         </dependency>
     </dependencies>
-
 </project>
