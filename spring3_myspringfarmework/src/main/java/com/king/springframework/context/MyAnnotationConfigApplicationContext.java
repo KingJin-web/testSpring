@@ -7,6 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,9 +42,11 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
                 MyComponentScan msc = (MyComponentScan) cl.getAnnotation(MyComponentScan.class);
                 if (msc.basePackages() != null && msc.basePackages().length > 0) {
                     basePackage = msc.basePackages();
+                    System.out.println(" basePackage" + Arrays.toString(basePackage));
                 }
+                //处理 @MyBean的情况
                 Object obj = cl.newInstance();
-                handleAtMyBean(cl,obj);
+                handleAtMyBean(cl, obj);
             }
 
 
@@ -56,13 +59,13 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         return paths;
     }
 
-    private void handleAtMyBean(Class cls , Object obj) throws InvocationTargetException, IllegalAccessException {
+    private void handleAtMyBean(Class cls, Object obj) throws InvocationTargetException, IllegalAccessException {
         Method[] ms = cls.getDeclaredMethods();
 
-        for (Method method: ms) {
-            if (method.isAnnotationPresent(MyBean.class)){
-               Object o = method.invoke(obj);
-               beanMap.put(method.getName(),o);
+        for (Method method : ms) {
+            if (method.isAnnotationPresent(MyBean.class)) {
+                Object o = method.invoke(obj);
+                beanMap.put(method.getName(), o);
             }
         }
     }
