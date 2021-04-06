@@ -1,7 +1,5 @@
 package com.king.springframework.stereotype;
 
-import org.springframework.context.annotation.ComponentScan;
-
 import java.lang.annotation.*;
 
 @Target(ElementType.TYPE)

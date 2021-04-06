@@ -20,7 +20,7 @@ public class HelloWorld {
 
     @MyPreDestroy
     public void destroy(){
-        System.out.println("  @MyPreDestroy");
+        System.out.println(" @MyPreDestroy");
     }
 
     public HelloWorld() {
@@ -29,6 +29,7 @@ public class HelloWorld {
 
     public void show(){
         System.out.println("Hello world");
+        
     }
 
 }

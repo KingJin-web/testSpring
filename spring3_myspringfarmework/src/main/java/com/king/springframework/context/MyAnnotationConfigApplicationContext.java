@@ -1,15 +1,19 @@
 package com.king.springframework.context;
 
 import com.king.MyAppConfig;
-import com.king.springframework.stereotype.MyBean;
-import com.king.springframework.stereotype.MyComponentScan;
+import com.king.springframework.stereotype.*;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import javax.annotation.Resource;
+import java.io.File;
+import java.io.FileFilter;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.*;
 
 /**
  * @program: testSpring
@@ -20,36 +24,183 @@ import java.util.Map;
 public class MyAnnotationConfigApplicationContext implements MyApplicationContext {
     Map<String, Object> beanMap = new HashMap<>();
 
-    public MyAnnotationConfigApplicationContext(Class<?>... componentClasses) throws IllegalAccessException, InvocationTargetException, InstantiationException {
+    public MyAnnotationConfigApplicationContext(Class<?>... componentClasses) {
 
-        this.register(componentClasses);
-        this.refresh();
+        try {
+            this.register(componentClasses);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void refresh() {
     }
 
-    private void register(Class<?>[] componentClasses) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+
+    private void register(Class<?>[] componentClasses) throws IllegalAccessException, InstantiationException, InvocationTargetException, IOException {
         if (componentClasses == null || componentClasses.length <= 0) {
-            throw new RuntimeException("");
+            throw new RuntimeException("没有指定配置类");
         }
+
         for (Class cl : componentClasses) {
-            if (!cl.isAssignableFrom(MyAppConfig.class)) {
-                continue;
+            //只实现 IOC MyPostConstruct MyPreDesTory
+            if (!cl.isAssignableFrom(MyConfiguration.class)) {
+               // continue;
             }
-            String[] basePackage = getAppConfigBasePages(cl);
+            String[] basePackages = getAppConfigBasePages(cl);
             if (cl.isAnnotationPresent(MyComponentScan.class)) {
                 MyComponentScan msc = (MyComponentScan) cl.getAnnotation(MyComponentScan.class);
                 if (msc.basePackages() != null && msc.basePackages().length > 0) {
-                    basePackage = msc.basePackages();
-                    System.out.println(" basePackage" + Arrays.toString(basePackage));
+                    basePackages = msc.basePackages();
+                    System.out.println(" 扫描包路径" + Arrays.toString(basePackages));
                 }
                 //处理 @MyBean的情况
                 Object obj = cl.newInstance();
                 handleAtMyBean(cl, obj);
+                for (String basePackage : basePackages) {
+                    scanPackageAndSubPackageClasses(basePackage);
+                }
+                //继续托管bean
+                handleManagedBean();
+                //版本二 循环 beanMap 中每一个bean 找到他们每个类中的每个@Autowired
+                // @Resource 注解方法实现DI
+                handleDi(beanMap);
             }
 
 
+        }
+    }
+
+
+    private void handleDi(Map<String, Object> beanMap) {
+        Collection<Object> objectCollection = beanMap.values();
+        for (Object obj : objectCollection) {
+            Class cls = obj.getClass();
+            Method[] methods = cls.getDeclaredMethods();
+
+            System.out.println("methods :" + Arrays.toString(methods));
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(MyAutowired.class) && method.getName().startsWith("set")) {
+                    invokeResourcedMethod(method, obj);
+                } else if (method.isAnnotationPresent(MyResource.class) && method.getName().startsWith("set")) {
+                    invokeResourcedMethod(method, obj);
+                } else {
+                    System.out.println("????");
+                }
+            }
+
+            Field[] fs = cls.getDeclaredFields();
+            System.out.println("fs :" + Arrays.toString(fs));
+            for (Field field : fs) {
+                if (field.isAnnotationPresent(MyAutowired.class)) {
+
+                } else if (field.isAnnotationPresent(MyResource.class)) {
+
+                }
+            }
+
+        }
+    }
+
+    private void invokeResourcedMethod(Method method, Object obj) {
+        MyResource mr = method.getAnnotation(MyResource.class);
+
+        String beanId = mr.name();
+
+    }
+
+    private Set<Class> manageBeanClasses = new HashSet<>();
+
+    private void handleManagedBean() throws InstantiationException, IllegalAccessException, InvocationTargetException {
+        for (Class c : manageBeanClasses) {
+            //判断有没有这个注解
+            if (c.isAnnotationPresent(MyComponent.class)) {
+                saveManagedBean(c);
+            } else if (c.isAnnotationPresent(MyService.class)) {
+                saveManagedBean(c);
+            } else if (c.isAnnotationPresent(MyController.class)) {
+                saveManagedBean(c);
+            } else {
+                continue;
+            }
+        }
+    }
+
+    private void saveManagedBean(Class c) throws IllegalAccessException, InstantiationException, InvocationTargetException {
+        Object o = c.newInstance();
+        handlePostConstruct(o, c);
+        String beanId = c.getSimpleName().substring(0, 1).toLowerCase() + c.getSimpleName().substring(1);
+        System.out.println("beanId" + beanId);
+        beanMap.put(beanId, o);
+
+    }
+
+    /**
+     * 处理 一个bean中的 @MyPostConstruct 对应方法
+     *
+     * @param o
+     * @param c
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
+    private void handlePostConstruct(Object o, Class<?> c) throws InvocationTargetException, IllegalAccessException {
+        Method[] ms = c.getDeclaredMethods();
+
+        for (Method method : ms) {
+            if (method.isAnnotationPresent(MyPostConstruct.class)) {
+                method.invoke(o);
+            }
+        }
+
+    }
+
+
+    /**
+     * 扫描 包和子包
+     *
+     * @param basePackage
+     * @throws IOException
+     */
+    private void scanPackageAndSubPackageClasses(String basePackage) throws IOException {
+        String packagePath = basePackage.replaceAll("\\.", "/");
+        System.out.println("包路径" + basePackage);
+        Enumeration<URL> files = Thread.currentThread().getContextClassLoader().getResources(packagePath);
+        while (files.hasMoreElements()) {
+            URL url = files.nextElement();
+            System.out.println("配置的扫描路径为" + url.getFile());
+            //TODO 递归这些目录 查找。class文件
+
+
+        }
+
+
+    }
+
+    public void findClassesInPackages(String file, String basePackage) throws ClassNotFoundException {
+        File f = new File(file);
+        File[] classFiles = f.listFiles(new FileFilter() {
+            @Override
+            public boolean accept(File pathname) {
+                return pathname.getName().startsWith(".class") || pathname.isDirectory();
+            }
+        });
+
+        for (File cf : classFiles) {
+            if (cf.isDirectory()) {
+                basePackage += "." + cf.getName().substring(cf.getName().lastIndexOf("/"));
+
+                findClassesInPackages(cf.getAbsolutePath(), basePackage);
+            } else {
+                URL[] urls = new URL[]{};
+                URLClassLoader url = new URLClassLoader(urls);
+                Class c = url.loadClass(basePackage + "." + cf.getName().replace(".class", ""));
+
+                manageBeanClasses.add(c);
+
+
+            }
         }
     }
 
@@ -65,10 +216,12 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         for (Method method : ms) {
             if (method.isAnnotationPresent(MyBean.class)) {
                 Object o = method.invoke(obj);
+                handlePostConstruct(o, o.getClass());
                 beanMap.put(method.getName(), o);
             }
         }
     }
+
 
     @Override
     public Object getBean(String id) {
