@@ -10,7 +10,7 @@ import com.king.springframework.stereotype.MyPreDestroy;
  * @author: King
  * @create: 2021-04-05 11:45
  */
-@MyComponent
+
 public class HelloWorld {
 
     @MyPostConstruct

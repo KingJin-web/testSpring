@@ -17,5 +17,6 @@ public class Main {
         MyApplicationContext ac = new MyAnnotationConfigApplicationContext(MyAppConfig.class);
         HelloWorld hw = (HelloWorld) ac.getBean("hw");
         hw.show();
+
     }
 }

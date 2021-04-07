@@ -39,15 +39,15 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
     }
 
 
-    private void register(Class<?>[] componentClasses) throws IllegalAccessException, InstantiationException, InvocationTargetException, IOException {
+    private void register(Class<?>[] componentClasses) throws IllegalAccessException, InstantiationException, InvocationTargetException, IOException, ClassNotFoundException {
         if (componentClasses == null || componentClasses.length <= 0) {
             throw new RuntimeException("没有指定配置类");
         }
 
         for (Class cl : componentClasses) {
             //只实现 IOC MyPostConstruct MyPreDesTory
-            if (!cl.isAssignableFrom(MyConfiguration.class)) {
-               // continue;
+            if (!cl.isAnnotationPresent(MyConfiguration.class)) {
+                 continue;
             }
             String[] basePackages = getAppConfigBasePages(cl);
             if (cl.isAnnotationPresent(MyComponentScan.class)) {
@@ -74,7 +74,7 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
     }
 
 
-    private void handleDi(Map<String, Object> beanMap) {
+    private void handleDi(Map<String, Object> beanMap) throws InvocationTargetException, IllegalAccessException {
         Collection<Object> objectCollection = beanMap.values();
         for (Object obj : objectCollection) {
             Class cls = obj.getClass();
@@ -86,13 +86,11 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
                     invokeResourcedMethod(method, obj);
                 } else if (method.isAnnotationPresent(MyResource.class) && method.getName().startsWith("set")) {
                     invokeResourcedMethod(method, obj);
-                } else {
-                    System.out.println("????");
                 }
             }
 
             Field[] fs = cls.getDeclaredFields();
-            System.out.println("fs :" + Arrays.toString(fs));
+            //  System.out.println("fs :" + Arrays.toString(fs));
             for (Field field : fs) {
                 if (field.isAnnotationPresent(MyAutowired.class)) {
 
@@ -104,10 +102,19 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         }
     }
 
-    private void invokeResourcedMethod(Method method, Object obj) {
+    private void invokeResourcedMethod(Method method, Object obj) throws InvocationTargetException, IllegalAccessException {
         MyResource mr = method.getAnnotation(MyResource.class);
 
         String beanId = mr.name();
+        if (beanId == null || beanId.equalsIgnoreCase("")) {
+            String pName = method.getParameterTypes()[0].getSimpleName();
+            System.out.println("name" + pName);
+            beanId = pName.substring(0, 1).toLowerCase() + pName.substring(1);
+            System.out.println("beanId" + beanId);
+
+        }
+        Object o = beanMap.get(beanId);
+        method.invoke(o);
 
     }
 
@@ -121,9 +128,9 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
             } else if (c.isAnnotationPresent(MyService.class)) {
                 saveManagedBean(c);
             } else if (c.isAnnotationPresent(MyController.class)) {
+
+            } else if (c.isAnnotationPresent(MyRepository.class)) {
                 saveManagedBean(c);
-            } else {
-                continue;
             }
         }
     }
@@ -163,22 +170,30 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
      * @param basePackage
      * @throws IOException
      */
-    private void scanPackageAndSubPackageClasses(String basePackage) throws IOException {
+    private void scanPackageAndSubPackageClasses(String basePackage) throws IOException, ClassNotFoundException {
         String packagePath = basePackage.replaceAll("\\.", "/");
         System.out.println("包路径" + basePackage);
         Enumeration<URL> files = Thread.currentThread().getContextClassLoader().getResources(packagePath);
         while (files.hasMoreElements()) {
             URL url = files.nextElement();
             System.out.println("配置的扫描路径为" + url.getFile());
+            System.out.println("basePackage  " + basePackage);
             //TODO 递归这些目录 查找。class文件
-
+            findClassesInPackages(url.getFile(), basePackage);
 
         }
 
 
     }
 
-    public void findClassesInPackages(String file, String basePackage) throws ClassNotFoundException {
+    /**
+     * 查找file 下面以及子包所有要托管的class 存到set(manageBeanClasses)
+     *
+     * @param file
+     * @param basePackage
+     * @throws ClassNotFoundException
+     */
+    private void findClassesInPackages(String file, String basePackage) throws ClassNotFoundException {
         File f = new File(file);
         File[] classFiles = f.listFiles(new FileFilter() {
             @Override
@@ -191,6 +206,7 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
             if (cf.isDirectory()) {
                 basePackage += "." + cf.getName().substring(cf.getName().lastIndexOf("/"));
 
+                System.out.println(basePackage);
                 findClassesInPackages(cf.getAbsolutePath(), basePackage);
             } else {
                 URL[] urls = new URL[]{};
@@ -226,5 +242,15 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
     @Override
     public Object getBean(String id) {
         return beanMap.get(id);
+    }
+
+    public Map<String, Object> getBeanMap() {
+
+        return beanMap;
+    }
+
+    public Set<Class> getManageBeanClasses() {
+
+        return manageBeanClasses;
     }
 }
