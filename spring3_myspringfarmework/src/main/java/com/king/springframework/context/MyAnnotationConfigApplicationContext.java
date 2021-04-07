@@ -2,9 +2,7 @@ package com.king.springframework.context;
 
 import com.king.MyAppConfig;
 import com.king.springframework.stereotype.*;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -24,14 +22,14 @@ import java.util.*;
 public class MyAnnotationConfigApplicationContext implements MyApplicationContext {
     Map<String, Object> beanMap = new HashMap<>();
 
-    public MyAnnotationConfigApplicationContext(Class<?>... componentClasses) {
+    public MyAnnotationConfigApplicationContext(Class<?>... componentClasses) throws InvocationTargetException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        try {
-            this.register(componentClasses);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+        this.register(componentClasses);
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -47,20 +45,24 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         for (Class cl : componentClasses) {
             //只实现 IOC MyPostConstruct MyPreDesTory
             if (!cl.isAnnotationPresent(MyConfiguration.class)) {
-                 continue;
+                continue;
             }
+
             String[] basePackages = getAppConfigBasePages(cl);
+            System.out.println(" 扫描包路径" + Arrays.toString(basePackages));
             if (cl.isAnnotationPresent(MyComponentScan.class)) {
                 MyComponentScan msc = (MyComponentScan) cl.getAnnotation(MyComponentScan.class);
                 if (msc.basePackages() != null && msc.basePackages().length > 0) {
                     basePackages = msc.basePackages();
-                    System.out.println(" 扫描包路径" + Arrays.toString(basePackages));
+
                 }
                 //处理 @MyBean的情况
+                //cl -> AppConfig 对象
                 Object obj = cl.newInstance();
                 handleAtMyBean(cl, obj);
+
                 for (String basePackage : basePackages) {
-                    scanPackageAndSubPackageClasses(basePackage);
+                    scanPackageAndSubPackageClasses(basePackage); //扫描所有的子包
                 }
                 //继续托管bean
                 handleManagedBean();
@@ -83,7 +85,7 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
             System.out.println("methods :" + Arrays.toString(methods));
             for (Method method : methods) {
                 if (method.isAnnotationPresent(MyAutowired.class) && method.getName().startsWith("set")) {
-                    invokeResourcedMethod(method, obj);
+                    invokeAutowiredMethod(method, obj);
                 } else if (method.isAnnotationPresent(MyResource.class) && method.getName().startsWith("set")) {
                     invokeResourcedMethod(method, obj);
                 }
@@ -102,19 +104,69 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         }
     }
 
-    private void invokeResourcedMethod(Method method, Object obj) throws InvocationTargetException, IllegalAccessException {
-        MyResource mr = method.getAnnotation(MyResource.class);
+    /*
+    循环  beanMap中的每个bean , 找到它们每个类中的每个由@Autowired @Resource注解的方法以实现di,
+     */
+    private void handleDi(Map<String, Object> beanMap, int a) throws InvocationTargetException, IllegalAccessException {
+        Collection<Object> objectCollection = beanMap.values();
+        for (Object obj : objectCollection) {
+            Class cls = obj.getClass();
+            Method[] ms = cls.getDeclaredMethods();
+            for (Method m : ms) {
+                if (m.isAnnotationPresent(MyAutowired.class) && m.getName().startsWith("set")) {
+                    invokeAutowiredMethod(m, obj);
+                } else if (m.isAnnotationPresent(MyResource.class) && m.getName().startsWith("set")) {
+                    invokeResourcedMethod(m, obj);
 
-        String beanId = mr.name();
-        if (beanId == null || beanId.equalsIgnoreCase("")) {
-            String pName = method.getParameterTypes()[0].getSimpleName();
-            System.out.println("name" + pName);
-            beanId = pName.substring(0, 1).toLowerCase() + pName.substring(1);
-            System.out.println("beanId" + beanId);
+                }
+            }
+            Field[] fs = cls.getDeclaredFields();
+            for (Field field : fs) {
+                if (field.isAnnotationPresent(MyAutowired.class)) {
 
+                } else if (field.isAnnotationPresent(MyResource.class)) {
+
+                }
+            }
         }
+
+    }
+
+    private void invokeAutowiredMethod(Method m, Object obj) throws InvocationTargetException, IllegalAccessException {
+        //1. 取出  m的参数的类型
+        //  StudentDao接口类型
+        Class typeClass = m.getParameterTypes()[0];
+        //2. 从beanMap中循环所有的object,
+        Set<String> keys = beanMap.keySet();
+        for (String key : keys) {
+            // 4.  如果是，则从beanMap取出.
+            Object o = beanMap.get(key);
+            //3. 判断 这些object 是否为   参数类型的实例  instanceof
+            Class[] interfaces = o.getClass().getInterfaces();
+            for (Class c : interfaces) {
+                System.out.println(c.getName() + "\t" + typeClass);
+                if (c == typeClass) {
+                    //5. invoke
+                    m.invoke(obj, o);
+                    break;
+                }
+            }
+        }
+    }
+
+    private void invokeResourcedMethod(Method m, Object obj) throws InvocationTargetException, IllegalAccessException {
+        //1. 取出  MyResource中的name属性值 ,当成   beanId
+        MyResource mr = m.getAnnotation(MyResource.class);
+        String beanId = mr.name();
+        //2. 如果没有，则取出  m方法中参数的类型名, 改成首字小写   当成beanId
+        if (beanId == null || beanId.equalsIgnoreCase("")) {
+            String pname = m.getParameterTypes()[0].getSimpleName();
+            beanId = pname.substring(0, 1).toLowerCase() + pname.substring(1);
+        }
+        //3. 从beanMap取出
         Object o = beanMap.get(beanId);
-        method.invoke(o);
+        //4. invoke
+        m.invoke(obj, o);
 
     }
 
@@ -172,12 +224,13 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
      */
     private void scanPackageAndSubPackageClasses(String basePackage) throws IOException, ClassNotFoundException {
         String packagePath = basePackage.replaceAll("\\.", "/");
-        System.out.println("包路径" + basePackage);
+        System.out.println("包路径" + basePackage + "替换后" + packagePath);
         Enumeration<URL> files = Thread.currentThread().getContextClassLoader().getResources(packagePath);
+        //System.out.println(files.hasMoreElements());
         while (files.hasMoreElements()) {
             URL url = files.nextElement();
             System.out.println("配置的扫描路径为" + url.getFile());
-            System.out.println("basePackage  " + basePackage);
+            System.out.println("basePackage  " + basePackage + "1");
             //TODO 递归这些目录 查找。class文件
             findClassesInPackages(url.getFile(), basePackage);
 

@@ -12,11 +12,11 @@ import com.king.springframework.stereotype.MyConfiguration;
  * @create: 2021-04-05 11:47
  */
 @MyConfiguration
-@MyComponentScan(basePackages = {"com.king.bean", "com.king.biz"})
+@MyComponentScan(basePackages = {"com.king.dao", "com.king.biz","com.king.bean"})
 public class MyAppConfig {
 
-    @MyBean
-    public HelloWorld hw() {
-        return new HelloWorld();
-    }
+//    @MyBean
+//    public HelloWorld hw() {
+//        return new HelloWorld();
+//    }
 }
