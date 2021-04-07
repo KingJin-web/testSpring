@@ -2,3 +2,4 @@
 /spring1_helloworld/target/
 *.exe
 */target/
+*.class
