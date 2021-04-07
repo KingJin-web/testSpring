@@ -24,12 +24,12 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
 
     public MyAnnotationConfigApplicationContext(Class<?>... componentClasses) throws InvocationTargetException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-//        try {
+        try {
         this.register(componentClasses);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -49,7 +49,7 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
             }
 
             String[] basePackages = getAppConfigBasePages(cl);
-            System.out.println(" 扫描包路径" + Arrays.toString(basePackages));
+           // System.out.println(" 扫描包路径" + Arrays.toString(basePackages));
             if (cl.isAnnotationPresent(MyComponentScan.class)) {
                 MyComponentScan msc = (MyComponentScan) cl.getAnnotation(MyComponentScan.class);
                 if (msc.basePackages() != null && msc.basePackages().length > 0) {
@@ -75,39 +75,10 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         }
     }
 
-
-    private void handleDi(Map<String, Object> beanMap) throws InvocationTargetException, IllegalAccessException {
-        Collection<Object> objectCollection = beanMap.values();
-        for (Object obj : objectCollection) {
-            Class cls = obj.getClass();
-            Method[] methods = cls.getDeclaredMethods();
-
-            System.out.println("methods :" + Arrays.toString(methods));
-            for (Method method : methods) {
-                if (method.isAnnotationPresent(MyAutowired.class) && method.getName().startsWith("set")) {
-                    invokeAutowiredMethod(method, obj);
-                } else if (method.isAnnotationPresent(MyResource.class) && method.getName().startsWith("set")) {
-                    invokeResourcedMethod(method, obj);
-                }
-            }
-
-            Field[] fs = cls.getDeclaredFields();
-            //  System.out.println("fs :" + Arrays.toString(fs));
-            for (Field field : fs) {
-                if (field.isAnnotationPresent(MyAutowired.class)) {
-
-                } else if (field.isAnnotationPresent(MyResource.class)) {
-
-                }
-            }
-
-        }
-    }
-
     /*
-    循环  beanMap中的每个bean , 找到它们每个类中的每个由@Autowired @Resource注解的方法以实现di,
-     */
-    private void handleDi(Map<String, Object> beanMap, int a) throws InvocationTargetException, IllegalAccessException {
+     循环  beanMap中的每个bean , 找到它们每个类中的每个由@Autowired @Resource注解的方法以实现di,
+      */
+    private void handleDi(Map<String, Object> beanMap) throws InvocationTargetException, IllegalAccessException {
         Collection<Object> objectCollection = beanMap.values();
         for (Object obj : objectCollection) {
             Class cls = obj.getClass();
@@ -117,7 +88,6 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
                     invokeAutowiredMethod(m, obj);
                 } else if (m.isAnnotationPresent(MyResource.class) && m.getName().startsWith("set")) {
                     invokeResourcedMethod(m, obj);
-
                 }
             }
             Field[] fs = cls.getDeclaredFields();
@@ -131,6 +101,9 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         }
 
     }
+
+
+
 
     private void invokeAutowiredMethod(Method m, Object obj) throws InvocationTargetException, IllegalAccessException {
         //1. 取出  m的参数的类型
@@ -180,7 +153,7 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
             } else if (c.isAnnotationPresent(MyService.class)) {
                 saveManagedBean(c);
             } else if (c.isAnnotationPresent(MyController.class)) {
-
+                saveManagedBean(c);
             } else if (c.isAnnotationPresent(MyRepository.class)) {
                 saveManagedBean(c);
             }
@@ -250,16 +223,16 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         File f = new File(file);
         File[] classFiles = f.listFiles(new FileFilter() {
             @Override
-            public boolean accept(File pathname) {
-                return pathname.getName().startsWith(".class") || pathname.isDirectory();
+            public boolean accept(File file) {
+                return file.getName().endsWith(".class") || file.isDirectory();
             }
         });
 
         for (File cf : classFiles) {
             if (cf.isDirectory()) {
-                basePackage += "." + cf.getName().substring(cf.getName().lastIndexOf("/"));
+                basePackage += "." + cf.getName().substring(cf.getName().lastIndexOf("/") + 1);
 
-                System.out.println(basePackage);
+                //System.out.println(basePackage);
                 findClassesInPackages(cf.getAbsolutePath(), basePackage);
             } else {
                 URL[] urls = new URL[]{};
@@ -285,6 +258,7 @@ public class MyAnnotationConfigApplicationContext implements MyApplicationContex
         for (Method method : ms) {
             if (method.isAnnotationPresent(MyBean.class)) {
                 Object o = method.invoke(obj);
+                // TODO:   加入处理   @MyBean注解对应的方法所实例化的类中的 @MyPostConstruct 对应的方法
                 handlePostConstruct(o, o.getClass());
                 beanMap.put(method.getName(), o);
             }
