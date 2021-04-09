@@ -18,11 +18,11 @@ import java.lang.reflect.InvocationTargetException;
 public class Main {
     public static void main(String[] args) throws IllegalAccessException, InstantiationException, InvocationTargetException, IOException, ClassNotFoundException {
         MyApplicationContext ac = new MyAnnotationConfigApplicationContext(MyAppConfig.class);
-//        HelloWorld hw = (HelloWorld) ac.getBean("hw");
-//
-//        hw.show();
+        HelloWorld hw = (HelloWorld) ac.getBean("hw");
 
-        StudentBizImpl hw = (StudentBizImpl) ac.getBean("studentBizImpl");
-        hw.add("abc");
+        hw.show();
+//
+//        StudentBizImpl hw = (StudentBizImpl) ac.getBean("studentBizImpl");
+//        hw.add("abc");
     }
 }

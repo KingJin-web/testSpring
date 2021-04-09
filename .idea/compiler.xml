@@ -9,6 +9,7 @@
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
         <module name="homework" />
+        <module name="spring4_aop" />
         <module name="mybatis" />
       </profile>
     </annotationProcessing>

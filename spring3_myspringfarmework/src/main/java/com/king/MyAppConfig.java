@@ -15,8 +15,8 @@ import com.king.springframework.stereotype.MyConfiguration;
 @MyComponentScan(basePackages = {"com.king.dao", "com.king.biz","com.king.bean"})
 public class MyAppConfig {
 
-//    @MyBean
-//    public HelloWorld hw() {
-//        return new HelloWorld();
-//    }
+    @MyBean
+    public HelloWorld hw() {
+        return new HelloWorld();
+    }
 }
