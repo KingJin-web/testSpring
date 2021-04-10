@@ -6,11 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring1_helloworld" />
-        <module name="spring3_myspringfarmework" />
+        <module name="spring7_tx" />
         <module name="homework" />
         <module name="spring4_aop" />
         <module name="mybatis" />
+        <module name="spring6_selfaop_cglibproxy" />
+        <module name="spring1_helloworld" />
+        <module name="spring3_myspringfarmework" />
+        <module name="spring5_selfaop_jdkproxy" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
