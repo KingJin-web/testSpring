@@ -40,6 +40,7 @@ public class LogAspect {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss.SSSXXX");
         String d = simpleDateFormat.format(date);
         System.out.println("执行时间" + d);
+        System.out.println("----------------log1--------------------");
         System.out.println("===结束====");
     }
 
@@ -67,12 +68,14 @@ public class LogAspect {
      */
     @Around("execution(* com.king.biz.StudentBizImpl.find* (..))")
     private Object compute(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("开始- 进入增强");
+        System.out.println("**********compute2开始    增强了。。。");
+
         long start = System.currentTimeMillis();
         Object retVal = pjp.proceed();
         long end = System.currentTimeMillis();
-        System.out.println("结束");
+
         System.out.println("运行时长" + (end - start));
+        System.out.println("**********compute2退出增强了。。。");
         return retVal;
 
     }
