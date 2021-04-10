@@ -12,7 +12,7 @@ import javax.annotation.PreDestroy;
  * @author: King
  * @create: 2021-04-05 11:45
  */
-@Component
+
 public class HelloWorld {
 
     @PostConstruct

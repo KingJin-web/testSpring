@@ -28,6 +28,8 @@ public class StudentBizImplTest {
     public void tearDown() throws Exception {
     }
 
+
+
     @Test
     public void add() {
         studentBiz.add("张三");

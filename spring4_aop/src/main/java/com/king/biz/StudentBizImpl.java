@@ -16,7 +16,7 @@ import java.util.Random;
  * @create: 2021-04-04 14:26
  */
 @Service//给spring的类托管
-public class StudentBizImpl {
+public class StudentBizImpl  {
     private StudentDao studentDao;
 
     public StudentBizImpl(StudentDao studentDao) {
@@ -36,6 +36,7 @@ public class StudentBizImpl {
         this.studentDao = studentDao;
     }
 
+
     public void add(String name) {
         System.out.println(" -------业务层------------");
         System.out.println("用户名是否重名");
@@ -52,12 +53,13 @@ public class StudentBizImpl {
 
     private final Random random = new Random();
 
+
     public void find(String name) {
         System.out.println("=====业务层=====");
         System.out.println("查找用户名");
         studentDao.find(name);
         try {
-            Thread.sleep(random.nextInt());
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
