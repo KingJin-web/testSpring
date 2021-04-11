@@ -11,7 +11,7 @@
     <modules>
 
         <module>spring1_helloworld</module>
-        <module>mybatis</module>
+
         <module>homework</module>
         <module>spring3_myspringfarmework</module>
         <module>spring4_aop</module>
