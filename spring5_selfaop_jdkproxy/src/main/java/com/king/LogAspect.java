@@ -4,6 +4,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -15,58 +18,35 @@ import java.util.Date;
  */
 @Aspect
 @Component //要托管给 spring
-public class LogAspect {
-    //切入点声明
-    @Pointcut("execution(* com.king.biz.StudentBizImpl.add* (..))") // the pointcut expression
-    private void add() {
-    } // the pointcut signature
+public class LogAspect implements InvocationHandler {
 
-    @Pointcut("execution(* com.king.biz.StudentBizImpl.update* (..))") // the pointcut expression
-    private void update() {
-    } // the pointcut signature
+    private Object target;
 
-    @Pointcut("add() || update()") // the pointcut expression
-    private void addAndUpdate() {
-    } // the pointcut signature
+    public LogAspect(Object target) {
+        this.target = target;
+    }
 
+    public Object createProxy() {
+        return Proxy.newProxyInstance(this.target.getClass().getClassLoader(), this.target.getClass().getInterfaces(), this);
+    }
 
-    /**
-     * 前置增强
-     */
-    @Before("com.king.LogAspect.addAndUpdate()") // the pointcut expression
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.println("代理类对象" + proxy.getClass());
+        System.out.println("目标类方法" + method);
+        System.out.println("方法中参数" + args);
+
+        if (method.getName().startsWith("add")) {
+
+            log();
+        }
+
+        return method.invoke(this.target, args);
+    }
+
     private void log() {
-        System.out.println("前置增强");
-        Date date = new Date();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
-        String d = simpleDateFormat.format(date);
-        System.out.println("执行时间" + d);
-        System.out.println("----------------log1--------------------");
-        System.out.println("===结束====");
+        System.out.println("before");
+        System.out.println("date :" + new Date());
+        System.out.println("end");
     }
-
-    /**
-     * 后置增强
-     */
-    @AfterReturning("com.king.LogAspect.addAndUpdate()")
-    private void bye() {
-        System.out.println("bye");
-    }
-
-    /**
-     *
-     */
-    @Around("execution(* com.king.biz.StudentBizImpl.find* (..))")
-    private Object compute(ProceedingJoinPoint pjp) throws Throwable {
-        System.out.println("**********compute2开始    增强了。。。");
-
-        long start = System.currentTimeMillis();
-        Object retVal = pjp.proceed();
-        long end = System.currentTimeMillis();
-
-        System.out.println("运行时长" + (end - start));
-        System.out.println("**********compute2退出增强了。。。");
-        return retVal;
-
-    }
-
 }
