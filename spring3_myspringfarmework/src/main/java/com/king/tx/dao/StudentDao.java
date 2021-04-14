@@ -1,4 +1,4 @@
-package com.king.dao;
+package com.king.tx.dao;
 
 /**
  * @program: maven_1
@@ -11,8 +11,6 @@ public interface StudentDao {
     public int add(String name);
 
     public void update(String name);
-
-    public void find(String name);
 
 
 }

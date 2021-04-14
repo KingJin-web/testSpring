@@ -1,7 +1,7 @@
 package com.king.biz;
 
 
-import com.king.dao.StudentDao;
+import com.king.tx.dao.StudentDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

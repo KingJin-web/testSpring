@@ -1,10 +1,6 @@
-package com.king.dao;
+package com.king.tx.dao;
 
-import com.king.dao.StudentDao;
-import com.king.springframework.stereotype.MyComponent;
 import com.king.springframework.stereotype.MyRepository;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
 import java.util.Random;
 

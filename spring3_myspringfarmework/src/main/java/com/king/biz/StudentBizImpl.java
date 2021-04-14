@@ -1,7 +1,7 @@
 package com.king.biz;
 
 
-import com.king.dao.StudentDao;
+import com.king.tx.dao.StudentDao;
 import com.king.springframework.stereotype.MyAutowired;
 import com.king.springframework.stereotype.MyQualifier;
 import com.king.springframework.stereotype.MyService;

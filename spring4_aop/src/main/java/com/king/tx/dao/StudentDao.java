@@ -1,7 +1,4 @@
-package com.king.dao;
-
-import com.king.springframework.stereotype.MyComponent;
-import org.springframework.stereotype.Component;
+package com.king.tx.dao;
 
 /**
  * @program: maven_1
@@ -14,6 +11,8 @@ public interface StudentDao {
     public int add(String name);
 
     public void update(String name);
+
+    public void find(String name);
 
 
 }

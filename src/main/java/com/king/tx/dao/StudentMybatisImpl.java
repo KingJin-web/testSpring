@@ -1,6 +1,6 @@
-package com.king.dao;
+package com.king.tx.dao;
 
-
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.Random;
@@ -12,11 +12,12 @@ import java.util.Random;
  * @create: 2021-04-04 14:28
  */
 @Repository
+@Component
 public class StudentMybatisImpl implements StudentDao {
     @Override
     public int add(String name) {
         System.out.println("mybatis=========");
-        System.out.println("添加学生" + name);
+        System.out.println("添加学生" +name);
 
         return new Random().nextInt();
     }
@@ -24,13 +25,7 @@ public class StudentMybatisImpl implements StudentDao {
     @Override
     public void update(String name) {
         System.out.println("mybatis=========");
-        System.out.println("更新学生" + name);
-    }
-
-    @Override
-    public void find(String name) {
-        System.out.println("mybatis=========");
-        System.out.println("查找学生" + name);
+        System.out.println("更新学生" +name);
     }
 
 

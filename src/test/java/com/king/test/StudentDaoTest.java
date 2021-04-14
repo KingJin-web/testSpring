@@ -1,16 +1,12 @@
 package com.king.test;
 
 import com.king.AppConfig;
-import com.king.dao.StudentDao;
-import com.king.dao.StudentJpaImpl;
-import com.king.dao.StudentMybatisImpl;
+import com.king.tx.dao.StudentDao;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import static org.junit.Assert.*;
 
 public class StudentDaoTest {
     //    private StudentDao studentDao = null;

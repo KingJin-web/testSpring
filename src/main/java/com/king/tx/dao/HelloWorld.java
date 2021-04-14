@@ -1,4 +1,4 @@
-package com.king.dao;
+package com.king.tx.dao;
 
 /**
  * @program: testSpring

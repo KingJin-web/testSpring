@@ -1,4 +1,4 @@
-package com.king.dao;
+package com.king.tx.dao;
 
 import org.springframework.stereotype.Component;
 

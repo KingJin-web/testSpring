@@ -1,14 +1,12 @@
 package com.king.biz;
 
 
-import com.king.dao.StudentDao;
-import com.king.dao.StudentMybatisImpl;
+import com.king.tx.dao.StudentDao;
+import com.king.tx.dao.StudentMybatisImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import java.util.Random;
 
 /**
  * @program: maven_1
