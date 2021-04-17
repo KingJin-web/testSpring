@@ -39,4 +39,9 @@ where accountid = 1;
 update accounts
 set balance=balance + 1
 where accountid = 1;
-select * from accounts
+select *
+from accounts;
+
+
+insert into accounts(balance)
+values (10)

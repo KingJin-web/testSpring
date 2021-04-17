@@ -22,11 +22,17 @@ public class AppConfig {
 
     @Bean
     public ComboPooledDataSource dataSource() throws PropertyVetoException {
-        DataSource ds = new ComboPooledDataSource();
-        ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
-        ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
-        ((ComboPooledDataSource) ds).setUser("root");
-        ((ComboPooledDataSource) ds).setPassword("aaaa");
-        return (ComboPooledDataSource) ds;
+//        DataSource ds = new ComboPooledDataSource();
+//        ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
+//        ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
+//        ((ComboPooledDataSource) ds).setUser("root");
+//        ((ComboPooledDataSource) ds).setPassword("aaaa");
+//        return (ComboPooledDataSource) ds;
+        ComboPooledDataSource ds = new ComboPooledDataSource();
+        ds.setDriverClass("com.mysql.cj.jdbc.Driver");
+        ds.setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
+        ds.setUser("root");
+        ds.setPassword("aaaa");
+        return ds;
     }
 }

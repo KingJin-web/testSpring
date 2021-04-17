@@ -9,23 +9,13 @@ import lombok.Data;
  * @create: 2021-04-14 20:42
  */
 @Data
+//lombok.Data;
+//简化你的get set
+//自动生成 get set toString hashCode equals
+//需要引入包 IDE需要插件
 public class Accounts {
     private int accountid;
     private double balance;
 
-    public int getAccountid() {
-        return accountid;
-    }
 
-    public void setAccountid(int accountid) {
-        this.accountid = accountid;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 }

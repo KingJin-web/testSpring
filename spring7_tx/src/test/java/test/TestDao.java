@@ -1,6 +1,7 @@
 package test;
 
 import com.king.tx.AppConfig;
+import com.king.tx.bean.Accounts;
 import com.king.tx.dao.AccountDaoImpl;
 import org.junit.Assert;
 import org.junit.Test;
@@ -33,8 +34,19 @@ public class TestDao {
         System.out.println(dataSource.getConnection().toString());
     }
 
+    @Test//测试用例上加@Test注解，并且用例类名为testXXX
+    public void testAccountDaoImpl() throws SQLException {
+       Assert.assertNotNull(accountDao);
+    }
+
     @Test
     public void testFindAll(){
         System.out.println(accountDao.findAll());
+    }
+    @Test
+    public void testSaveDataSource(){
+        Accounts accounts = new Accounts();
+        accounts.setBalance(10.10);
+        System.out.println(accountDao.saveDataSource(accounts));
     }
 }
