@@ -7,6 +7,8 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.beans.PropertyVetoException;
 
@@ -18,6 +20,7 @@ import java.beans.PropertyVetoException;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.king"})
+@EnableTransactionManagement
 public class AppConfig {
 
     @Bean
