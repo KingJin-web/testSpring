@@ -1,4 +1,4 @@
-package test;
+package com.king.test;
 
 import com.king.tx.AppConfig;
 import com.king.tx.bean.Accounts;
@@ -20,7 +20,7 @@ import java.sql.SQLException;
  * @create: 2021-04-14 20:35
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {AppConfig.class })
+@ContextConfiguration(classes = {AppConfig.class})
 public class TestDao {
     @Autowired
     private DataSource dataSource;
@@ -36,17 +36,29 @@ public class TestDao {
 
     @Test//测试用例上加@Test注解，并且用例类名为testXXX
     public void testAccountDaoImpl() throws SQLException {
-       Assert.assertNotNull(accountDao);
+        Assert.assertNotNull(accountDao);
     }
 
     @Test
-    public void testFindAll(){
+    public void testFindAll() {
         System.out.println(accountDao.findAll());
     }
+
     @Test
-    public void testSaveDataSource(){
+    public void testSaveDataSource() {
         Accounts accounts = new Accounts();
         accounts.setBalance(10.10);
         System.out.println(accountDao.saveDataSource(accounts));
+    }
+
+    @Test
+    public void testUpdateAccount() {
+        Accounts accounts = new Accounts(2, 18.01);
+        accountDao.updateAccount(accounts);
+    }
+
+    @Test
+    public void testFindByID() {
+        System.out.println(accountDao.findAccount(4));
     }
 }

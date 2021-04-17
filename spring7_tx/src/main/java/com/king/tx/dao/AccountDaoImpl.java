@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @program: testSpring
@@ -32,7 +33,6 @@ public class AccountDaoImpl implements AccountDao {
     public void init(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-
 
 
     public void setDataSource(DataSource dataSource) {
@@ -64,11 +64,31 @@ public class AccountDaoImpl implements AccountDao {
             ps.setDouble(1, account.getBalance());
             return ps;
         }, keyHolder);
-        System.out.println(keyHolder.toString());
 
         // java.math.BigInteger cannot be cast to java.lang.Integer
         //return (Integer) keyHolder.getKey();
-        return ((BigInteger) keyHolder.getKey()).intValue();
+        //return ((BigInteger) keyHolder.getKey()).intValue();
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
+    }
+
+    @Override
+    public void delete(int accountid) {
+        String sql = "delete from accounts where accountid = ?";
+        this.jdbcTemplate.update(sql, accountid);
+    }
+
+    @Override
+    public Accounts findAccount(int accountid) {
+        String sql = "select * from accounts where accountid = ?";
+
+        return this.jdbcTemplate.queryForObject(sql, (
+                (resultSet, rowNum) -> {
+                    Accounts a = new Accounts();
+                    a.setAccountid(resultSet.getInt(1));
+                    a.setBalance(resultSet.getDouble(2));
+                    return a;
+                }
+        ),accountid);
     }
 
 
@@ -77,28 +97,45 @@ public class AccountDaoImpl implements AccountDao {
 
         // this.jdbcTemplate = new JdbcTemplate(dataSource);
         String sql = "select * from accounts";
-        List<Accounts> list = this.jdbcTemplate.query(sql, new RowMapper<Accounts>() {
-            @Override
-            public Accounts mapRow(ResultSet resultSet, int i) throws SQLException {
-                Accounts a = new Accounts();
-                a.setAccountid(resultSet.getInt(1));
-                a.setBalance(resultSet.getDouble(2));
 
-                System.out.println(a);
-                return a;
-            }
-        });
+//        return this.jdbcTemplate.query(sql, new RowMapper<Accounts>() {
+//            /**
+//             *
+//             * @param resultSet 结果集
+//             * @param i 行号
+//             * @return
+//             * @throws SQLException
+//             */
+//            @Override
+//            public Accounts mapRow(ResultSet resultSet, int i) throws SQLException {
+//                Accounts a = new Accounts();
+//                a.setAccountid(resultSet.getInt(1));
+//                a.setBalance(resultSet.getDouble(2));
+//
+//                System.out.println(a);
+//                return a;
+//            }
+//        });
 
-        return list;
+        return this.jdbcTemplate.query(
+                sql,
+                (resultSet, rowNum) -> {
+                    Accounts a = new Accounts();
+                    a.setAccountid(resultSet.getInt(1));
+                    a.setBalance(resultSet.getDouble(2));
+                    return a;
+                });
+
+
     }
 
-    @Override
-    public void delete() {
-
-    }
 
     @Override
     public Accounts updateAccount(Accounts account) {
-        return null;
+        String sql = "update accounts set balance = ? where accountid = ?";
+
+        this.jdbcTemplate.update(sql, account.getBalance(), account.getAccountid());
+        System.out.println("修改" + account + "成功");
+        return account;
     }
 }

@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface AccountDao {
-//    public int setDataSource(Accounts account);
+
 
     //更新
     public Accounts updateAccount(Accounts account);
@@ -21,5 +21,9 @@ public interface AccountDao {
     //查询所有
     public List<Accounts> findAll();
 
-    public void delete();
+    //删除 by Id
+    public void delete(int accountid);
+
+    //查找 by Id
+    public Accounts findAccount(int accountid);
 }

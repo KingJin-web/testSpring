@@ -17,5 +17,11 @@ public class Accounts {
     private int accountid;
     private double balance;
 
+    public Accounts(int accountid, double balance) {
+        this.accountid = accountid;
+        this.balance = balance;
+    }
 
+    public Accounts() {
+    }
 }

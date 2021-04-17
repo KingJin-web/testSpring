@@ -24,6 +24,7 @@
             <version>8.0.23</version>
         </dependency>
 
+        <!--        数据库连接池-->
         <dependency>
             <groupId>com.mchange</groupId>
             <artifactId>c3p0</artifactId>
