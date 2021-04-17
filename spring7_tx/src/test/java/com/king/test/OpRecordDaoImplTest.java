@@ -2,7 +2,9 @@ package com.king.test;
 
 import com.king.tx.AppConfig;
 import com.king.tx.bean.OpRecord;
-import com.king.tx.dao.OpRecordDao;
+import com.king.tx.bean.Optypes;
+
+
 import com.king.tx.dao.OpRecordDaoImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +32,7 @@ public class OpRecordDaoImplTest {
     public void saveOpRecord() {
         Timestamp Time = new Timestamp(new Date().getTime());
 
-        OpRecord opRecord = new OpRecord(4,18.3, Time,"deposite","");
+        OpRecord opRecord = new OpRecord(4,18.3, Time, Optypes.withdraw.getName()," ");
         opRecordDao.saveOpRecord(opRecord);
     }
 

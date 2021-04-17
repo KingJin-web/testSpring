@@ -52,7 +52,7 @@ public class OpRecordDaoImpl implements OpRecordDao {
 
     @Override
     public List<OpRecord> findAll() {
-        // this.jdbcTemplate = new JdbcTemplate(dataSource);
+
         String sql = "select * from oprecord";
         return this.jdbcTemplate.query(
                 sql,
