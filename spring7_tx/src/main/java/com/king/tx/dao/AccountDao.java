@@ -16,7 +16,7 @@ public interface AccountDao {
      * @param account
      * @return
      */
-    public Integer saveDataSource(Accounts account);
+    public int saveDataSource(Accounts account);
 
     //查询所有
     public List<Accounts> findAll();
