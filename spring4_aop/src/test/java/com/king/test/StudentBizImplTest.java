@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -17,7 +18,8 @@ import static org.junit.Assert.*;
 @ContextConfiguration(classes = MyAppConfig.class)
 public class StudentBizImplTest {
 
-    @Resource(name = "studentBizImpl")
+    //@Resource(name = "studentBizImpl")
+    @Autowired
     private StudentBizImpl studentBiz;
 
     @Before

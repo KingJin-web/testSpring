@@ -1,10 +1,12 @@
 package com.king.biz;
 
 
-import com.king.tx.dao.StudentDao;
+import com.king.biz.*;
 
+import com.king.dao.StudentDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -15,7 +17,7 @@ import java.util.Random;
  * @author: King
  * @create: 2021-04-04 14:26
  */
-@Service//给spring的类托管
+@Repository //给spring的类托管
 public class StudentBizImpl  {
     private StudentDao studentDao;
 

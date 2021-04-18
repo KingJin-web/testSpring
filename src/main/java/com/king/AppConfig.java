@@ -19,6 +19,12 @@ public class AppConfig {
     //studentBizImpl 是
     @Bean
     public StudentBizImpl studentBizImpl(){
+
         return new StudentBizImpl();
+    }
+
+
+    public static void main(String[] args) {
+
     }
 }

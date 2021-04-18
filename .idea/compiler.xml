@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring7_tx" />
+        <module name="printbook_bank" />
         <module name="homework" />
         <module name="spring4_aop" />
         <module name="spring6_selfaop_cglibproxy" />
@@ -25,6 +26,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mybatis" options="-parameters" />
+      <module name="printbook_bank" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
     </option>
   </component>
