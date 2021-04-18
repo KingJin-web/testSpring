@@ -9,11 +9,11 @@ import java.util.List;
 public interface AccountService {
     Integer openAccount(Accounts account, double money);
 
-    Accounts deposite(Accounts accounts, double money);
+    public Accounts deposite(Accounts accounts, double money, String optype, String transferid);
 
-    Accounts withdraw(Accounts accounts, double money);
+    Accounts withdraw(Accounts accounts, double money, String optype, String transferid);
 
-    Accounts transfer(Accounts accounts, double money);
+    Accounts transfer(Accounts inAccounts,Accounts outAccounts, double money);
 
     @Transactional(readOnly = true)
     Accounts showBalance(Accounts accounts);

@@ -13,6 +13,7 @@
         <module name="spring6_selfaop_cglibproxy" />
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
+        <module name="springboot_helloworld" />
         <module name="spring5_selfaop_jdkproxy" />
       </profile>
     </annotationProcessing>
@@ -24,6 +25,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mybatis" options="-parameters" />
+      <module name="springboot_helloworld" options="-parameters" />
     </option>
   </component>
 </project>

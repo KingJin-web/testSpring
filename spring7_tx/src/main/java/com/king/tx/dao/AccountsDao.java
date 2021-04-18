@@ -5,7 +5,7 @@ import com.king.tx.bean.Accounts;
 import java.util.List;
 
 
-public interface AccountDao {
+public interface AccountsDao {
 
 
     //更新

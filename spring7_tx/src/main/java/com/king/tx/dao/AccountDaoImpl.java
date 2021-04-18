@@ -24,8 +24,8 @@ import java.util.Objects;
  * @author: King
  * @create: 2021-04-14 20:34
  */
-@Repository//给spring的类托管
-public class AccountDaoImpl implements AccountDao {
+@Repository
+public class AccountDaoImpl implements AccountsDao {
 
     private JdbcTemplate jdbcTemplate;
 

@@ -84,4 +84,20 @@ public class OpRecordDaoImpl implements OpRecordDao {
                     return o;
                 }, id);
     }
+    @Override
+    public List<OpRecord> findById2(int id) {
+        String sql = "select * from oprecord where id = ?";
+        return this.jdbcTemplate.query(
+                sql,
+                (resultSet, rowNum) -> {
+                    OpRecord o = new OpRecord();
+                    o.setId(resultSet.getInt(1));
+                    o.setAccountid(resultSet.getInt(2));
+                    o.setOpmoney(resultSet.getDouble(3));
+                    o.setOptime(resultSet.getTimestamp(4));
+                    o.setOptype(resultSet.getString(5));
+                    o.setTransferid(resultSet.getString(6));
+                    return o;
+                }, id);
+    }
 }

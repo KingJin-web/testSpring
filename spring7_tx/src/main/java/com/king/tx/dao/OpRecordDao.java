@@ -12,7 +12,11 @@ import java.util.List;
  */
 public interface OpRecordDao {
     public int saveOpRecord(OpRecord opRecord);
+
     public List<OpRecord> findAll();
+
     public OpRecord findById(int id);
+
+    public List<OpRecord> findById2(int id);
 
 }
