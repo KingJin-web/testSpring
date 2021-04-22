@@ -9,27 +9,33 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring7_tx" />
         <module name="printbook_bank" />
+        <module name="testmystarter" />
         <module name="homework" />
         <module name="spring4_aop" />
         <module name="spring6_selfaop_cglibproxy" />
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
         <module name="springboot_helloworld" />
+        <module name="testmysqlstarter" />
         <module name="spring5_selfaop_jdkproxy" />
         <module name="springboot1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Hellostarter" target="1.8" />
       <module name="mybatis" target="1.8" />
       <module name="spring1_helloword" target="8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="Hellostarter" options="-parameters" />
       <module name="mybatis" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />
       <module name="springboot1" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
+      <module name="testmysqlstarter" options="-parameters" />
+      <module name="testmystarter" options="-parameters" />
     </option>
   </component>
 </project>
