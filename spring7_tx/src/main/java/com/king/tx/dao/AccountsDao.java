@@ -1,6 +1,7 @@
 package com.king.tx.dao;
 
 import com.king.tx.bean.Accounts;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -8,7 +9,11 @@ import java.util.List;
 public interface AccountsDao {
 
 
-    //更新
+    /**
+     * 更新
+     * @param account
+     * @return
+     */
     public Accounts updateAccount(Accounts account);
 
     /**

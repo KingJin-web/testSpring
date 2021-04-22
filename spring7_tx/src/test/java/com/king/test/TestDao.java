@@ -2,7 +2,7 @@ package com.king.test;
 
 import com.king.tx.AppConfig;
 import com.king.tx.bean.Accounts;
-import com.king.tx.dao.AccountDaoImpl;
+import com.king.tx.dao.AccountsDaoImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class TestDao {
     private DataSource dataSource;
 
     @Autowired
-    private AccountDaoImpl accountDao;
+    private AccountsDaoImpl accountDao;
 
     @Test//测试用例上加@Test注解，并且用例类名为testXXX
     public void testDataSource() throws SQLException {

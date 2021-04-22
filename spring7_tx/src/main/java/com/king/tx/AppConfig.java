@@ -7,7 +7,9 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.beans.PropertyVetoException;
@@ -23,19 +25,35 @@ import java.beans.PropertyVetoException;
 @EnableTransactionManagement
 public class AppConfig {
 
+//    @Bean
+//    public ComboPooledDataSource dataSource() throws PropertyVetoException {
+////        DataSource ds = new ComboPooledDataSource();
+////        ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
+////        ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
+////        ((ComboPooledDataSource) ds).setUser("root");
+////        ((ComboPooledDataSource) ds).setPassword("aaaa");
+////        return (ComboPooledDataSource) ds;
+//        ComboPooledDataSource ds = new ComboPooledDataSource();
+//        ds.setDriverClass("com.mysql.cj.jdbc.Driver");
+//        ds.setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
+//        ds.setUser("root");
+//        ds.setPassword("aaaa");
+//        return ds;
+//    }
+
     @Bean
-    public ComboPooledDataSource dataSource() throws PropertyVetoException {
-//        DataSource ds = new ComboPooledDataSource();
-//        ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
-//        ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
-//        ((ComboPooledDataSource) ds).setUser("root");
-//        ((ComboPooledDataSource) ds).setPassword("aaaa");
-//        return (ComboPooledDataSource) ds;
-        ComboPooledDataSource ds = new ComboPooledDataSource();
-        ds.setDriverClass("com.mysql.cj.jdbc.Driver");
-        ds.setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
-        ds.setUser("root");
-        ds.setPassword("aaaa");
-        return ds;
+    public DataSource dataSource() throws PropertyVetoException {
+        DataSource ds = new ComboPooledDataSource();
+        ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
+        ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");
+        ((ComboPooledDataSource) ds).setUser("root");
+        ((ComboPooledDataSource) ds).setPassword("aaaa");
+        return (ComboPooledDataSource) ds;
     }
+
+    @Bean
+    public TransactionManager DataSourceTransactionManager(DataSource ds) {
+        return new DataSourceTransactionManager(ds);
+    }
+
 }

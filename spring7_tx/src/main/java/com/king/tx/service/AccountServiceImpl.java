@@ -4,9 +4,11 @@ import com.king.tx.bean.Accounts;
 import com.king.tx.bean.OpRecord;
 
 import com.king.tx.bean.Optypes;
-import com.king.tx.dao.AccountDaoImpl;
+
 import com.king.tx.dao.AccountsDao;
+import com.king.tx.dao.AccountsDaoImpl;
 import com.king.tx.dao.OpRecordDao;
+import com.king.tx.dao.OpRecordDaoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
@@ -32,24 +34,28 @@ import java.util.UUID;
         timeout = 100,
         rollbackForClassName = {"RuntimeException"}
 )
+
 @Repository
 public class AccountServiceImpl implements AccountService {
-
-    private OpRecordDao opRecordDao;
-    private AccountsDao accountsDao;
+    @Autowired
+    private OpRecordDaoImpl opRecordDao;
 
     @Autowired
-    public void setOpRecordDao(OpRecordDao opRecordDao) {
-        this.opRecordDao = opRecordDao;
-    }
+    private AccountsDaoImpl accountsDao;
 
-    @Autowired
-    public void setAccountDao(AccountsDao accountsDao) {
-        this.accountsDao = accountsDao;
-    }
+//    @Autowired
+//    public void setOpRecordDao(OpRecordDao opRecordDao) {
+//        this.opRecordDao = opRecordDao;
+//    }
+//
+//    @Autowired
+//    public void setAccountDao(AccountsDao accountsDao) {
+//        this.accountsDao = accountsDao;
+//    }
 
     @Override
     public Integer openAccount(Accounts account, double money) {
+        System.out.println(accountsDao);
         account.setBalance(money);
         int accountid = accountsDao.saveDataSource(account);
         //开户时的日志

@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import javax.sql.DataSource;
 import java.math.BigInteger;
@@ -24,8 +25,8 @@ import java.util.Objects;
  * @author: King
  * @create: 2021-04-14 20:34
  */
-@Repository
-public class AccountDaoImpl implements AccountsDao {
+@Repository("accountsDao")
+public class AccountsDaoImpl implements AccountsDao {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -35,10 +36,6 @@ public class AccountDaoImpl implements AccountsDao {
     }
 
 
-    public void setDataSource(DataSource dataSource) {
-        System.out.println(dataSource);
-        this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
 
 
     @Override
