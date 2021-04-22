@@ -16,6 +16,7 @@
         <module name="spring3_myspringfarmework" />
         <module name="springboot_helloworld" />
         <module name="spring5_selfaop_jdkproxy" />
+        <module name="springboot1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -27,6 +28,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="mybatis" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />
+      <module name="springboot1" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
     </option>
   </component>
