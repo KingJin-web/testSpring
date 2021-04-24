@@ -1,9 +1,12 @@
-
 logging:
   level:
     root: error
-    com.king: debug
+    com.king: info
     org.spring.framework: error
   file:
     path: ./logs
     name: yc.log
+
+king:
+  tname: a
+  age: 18

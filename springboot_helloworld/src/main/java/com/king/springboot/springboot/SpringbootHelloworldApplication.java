@@ -1,18 +1,23 @@
 package com.king.springboot.springboot;
 
+import com.king.springboot.springboot.properties.Properties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.AutoConfigurationImportSelector;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
 @RestController //@Controller 控制层 @Restful 以rest规范（ 请求方式
+@EnableConfigurationProperties(Properties.class)
 public class SpringbootHelloworldApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(SpringbootHelloworldApplication.class, args);
     }
-    AutoConfigurationImportSelector  autoConfigurationImportSelector = new AutoConfigurationImportSelector();
+
+    AutoConfigurationImportSelector autoConfigurationImportSelector = new AutoConfigurationImportSelector();
+
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "小宝贝") String name) {
         return String.format("Hello %s!", name);
