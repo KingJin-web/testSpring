@@ -25,7 +25,7 @@ public class HelloWorldController {
         log.info("info");
         log.debug("debug");
         log.error("error");
-        log.warn("warn");
+        log.fatal("fatal");
 
         return String.format("Hello %s!", name);
     }
