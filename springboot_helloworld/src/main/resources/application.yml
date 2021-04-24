@@ -1,0 +1,9 @@
+
+logging:
+  level:
+    root: error
+    com.king: debug
+    org.spring.framework: error
+  file:
+    path: ./logs
+    name: yc.log

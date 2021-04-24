@@ -18,13 +18,13 @@
         <module name="springboot_helloworld" />
         <module name="testmysqlstarter" />
         <module name="spring5_selfaop_jdkproxy" />
-        <module name="springboot1" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Hellostarter" target="1.8" />
       <module name="mybatis" target="1.8" />
       <module name="spring1_helloword" target="8" />
+      <module name="springboot1" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
