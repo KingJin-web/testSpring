@@ -6,6 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+/**
+ * @author King
+ */
 public interface AccountService {
     //开户
     Integer openAccount(Accounts account, double money);

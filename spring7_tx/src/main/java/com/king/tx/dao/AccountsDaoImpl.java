@@ -25,9 +25,10 @@ import java.util.Objects;
  * @author: King
  * @create: 2021-04-14 20:34
  */
-@Repository("accountsDao")
-public class AccountsDaoImpl implements AccountsDao {
 
+@Repository
+public class AccountsDaoImpl implements AccountsDao {
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
     @Autowired

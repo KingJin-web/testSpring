@@ -17,6 +17,7 @@
         <module>spring5_selfaop_jdkproxy</module>
         <module>spring6_selfaop_cglibproxy</module>
         <module>spring7_tx</module>
+        <module>spring7_2_tx</module>
     </modules>
 
     <properties>

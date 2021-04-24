@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionManager;
@@ -22,7 +23,7 @@ import java.beans.PropertyVetoException;
  */
 @Configuration
 @ComponentScan(basePackages = {"com.king"})
-@EnableTransactionManagement
+@EnableAspectJAutoProxy
 public class AppConfig {
 
 //    @Bean
@@ -42,7 +43,7 @@ public class AppConfig {
 //    }
 
     @Bean
-    public DataSource dataSource() throws PropertyVetoException {
+    public ComboPooledDataSource dataSource() throws PropertyVetoException {
         DataSource ds = new ComboPooledDataSource();
         ((ComboPooledDataSource) ds).setDriverClass("com.mysql.cj.jdbc.Driver");
         ((ComboPooledDataSource) ds).setJdbcUrl("jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8");

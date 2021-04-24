@@ -37,12 +37,12 @@ import java.util.UUID;
 
 @Repository
 public class AccountServiceImpl implements AccountService {
+
+
+    @Autowired
+    private AccountsDao accountsDao;
     @Autowired
     private OpRecordDaoImpl opRecordDao;
-
-    @Autowired
-    private AccountsDaoImpl accountsDao;
-
 //    @Autowired
 //    public void setOpRecordDao(OpRecordDao opRecordDao) {
 //        this.opRecordDao = opRecordDao;
