@@ -8,14 +8,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring7_tx" />
-        <module name="printbook_bank" />
         <module name="testmystarter" />
         <module name="homework" />
         <module name="spring4_aop" />
-        <module name="spring7_2_tx" />
-        <module name="spring6_selfaop_cglibproxy" />
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
+        <module name="springmybank" />
+        <module name="printbook_bank" />
+        <module name="spring7_2_tx" />
+        <module name="spring6_selfaop_cglibproxy" />
         <module name="springboot_helloworld" />
         <module name="testmysqlstarter" />
         <module name="spring5_selfaop_jdkproxy" />
@@ -26,6 +27,7 @@
       <module name="mybatis" target="1.8" />
       <module name="spring1_helloword" target="8" />
       <module name="springboot1" target="1.8" />
+      <module name="springboot_bank" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -34,7 +36,9 @@
       <module name="mybatis" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />
       <module name="springboot1" options="-parameters" />
+      <module name="springboot_bank" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
+      <module name="springmybank" options="-parameters" />
       <module name="testmysqlstarter" options="-parameters" />
       <module name="testmystarter" options="-parameters" />
     </option>
