@@ -27,6 +27,8 @@ public class TestmystarterApplication {
 
     @GetMapping("/hello")
     public String say(){
+
+        System.out.println(helloService.toString());
         return helloService.say();
     }
 
