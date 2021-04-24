@@ -1,6 +1,8 @@
 package com.yc.dao;
 
 import com.yc.tx.AppConfig;
+import com.yc.tx.Service.AccountService;
+import com.yc.tx.bean.Accounts;
 import com.yc.tx.bean.OpRecord;
 import com.yc.tx.bean.OpTypes;
 import com.yc.tx.dao.OpRecordDao;
@@ -50,4 +52,12 @@ public class TestOprecordDao {
         Assert.assertNotEquals(0,list.size());
     }
 
+    @Autowired
+    private AccountService accountService;
+    public void setAccountDao(){
+        Accounts accounts = new Accounts();
+        accounts.setBalance(19.9);
+        Integer i =  accountService.openAccount(accounts, 19.9);
+        System.out.println(i);
+    }
 }

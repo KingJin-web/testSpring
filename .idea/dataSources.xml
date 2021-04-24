@@ -9,5 +9,13 @@
       <jdbc-url>jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT%2B8&amp;useUnicode=true&amp;characterEncoding=UTF-8</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Mysql [2]" uuid="e52165c5-8b1a-4fe7-902c-2b08f98c52d2">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <configured-by-url>true</configured-by-url>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/testbank?serverTimezone=GMT%2B8&amp;useUnicode=true&amp;characterEncoding=UTF-8</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

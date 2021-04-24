@@ -6,6 +6,7 @@ import com.yc.tx.bean.OpTypes;
 import com.yc.tx.dao.AccountDao;
 import com.yc.tx.dao.OpRecordDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -22,7 +23,7 @@ import java.util.UUID;
  * @author: 作者 :林木木
  * @create: 2021-04-17 16:25
  */
-@Service
+@Repository
 @Transactional(propagation = Propagation.REQUIRED,
                 isolation = Isolation.DEFAULT,
                 readOnly = false,
