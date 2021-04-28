@@ -7,14 +7,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="spring7_tx" />
         <module name="testmystarter" />
         <module name="homework" />
         <module name="spring4_aop" />
+        <module name="spring6_selfaop_cglibproxy" />
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
-        <module name="spring7_2_tx" />
-        <module name="spring6_selfaop_cglibproxy" />
         <module name="springboot_helloworld" />
         <module name="testmysqlstarter" />
         <module name="spring5_selfaop_jdkproxy" />
@@ -26,6 +24,8 @@
       <module name="mybatis" target="1.8" />
       <module name="printbook_bank" target="1.8" />
       <module name="spring1_helloword" target="8" />
+      <module name="spring7_2_tx" target="1.8" />
+      <module name="spring7_tx" target="1.8" />
       <module name="springboot1" target="1.8" />
       <module name="springboot_bank" target="1.8" />
       <module name="springmybank" target="1.8" />

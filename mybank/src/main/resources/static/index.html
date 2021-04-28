@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+<div id="app">
+    <form method="post" action="">
+        账号<input type="text" name="accountId" v-model="accountId"><br>
+        操作金额<input type="text" name="money" v-model="money"><br>
+        账号<input type="text" name="inAccountId" v-model="inAccountId"><br>
+
+        <input type="button" value="开户" class="button" @click="openAccount()">
+        <input type="button" value="存款" class="button">
+        <input type="button" value="取款" class="button" @click="withdraw()">
+        <input type="button" value="转账" class="button">
+        <input type="button" value="查询" class="button">
+        <div id="result"></div>
+    </form>
+    <div>{{result}}</div>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.js"></script>
+<script>
+    let vue = new Vue({
+        el: '#app',
+        data: {
+            accountId: "123",
+            money: 0.0,
+            inAccountId: "",
+            result: ""
+        },
+        methods: {
+            openAccount: function () {
+                var params = new URLSearchParams();
+                params.append("money", this.money);
+                axios.post('/mybank/openAccount', params).then(res => {
+                    if (res.data.code === 1) {
+                        this.result = "新开账号" + "<span class='pointer'>" + res.data.data.accountId + "</span>" +
+                            "余额为" + "<span class='pointer'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>"
+                    }
+
+                });
+            },
+
+            withdraw: function () {
+                //http://localhost/mybank/withdraw?accountId=11&money=11
+                var params = new URLSearchParams();
+                params.append("accountId", this.accountId)
+                params.append("money", this.money);
+                axios.post('/mybank/withdraw', params).then(res => {
+                    if (res.data.code === 1) {
+                        this.result = "取款账号" + "<span class='pointer'>" + res.data.data.accountId + "</span>" +
+                            "取款" + "<span class='pointer'>" + this.money + "</span>" +
+                            "余额为" + "<span class='pointer'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>";
+                    }
+
+                });
+            },
+        }
+    })
+</script>
+</body>
+</html>
