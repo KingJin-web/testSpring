@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="spring_rdering" />
         <module name="testmystarter" />
         <module name="homework" />
         <module name="spring4_aop" />
@@ -37,6 +38,7 @@
       <module name="mybank" options="-parameters" />
       <module name="mybatis" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />
+      <module name="spring_rdering" options="-parameters" />
       <module name="springboot1" options="-parameters" />
       <module name="springboot_bank" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
