@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/testspring?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: aaaa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+server:
+  port: 8081
+  servlet:
+    session:
+      timeout: 6000
+
+
+logging:
+  level:
+    root: warn
+    org.springframework: warn
+    com.yc: info
+  file:
+    path: ./logs
+    name: yc_mybank.log
