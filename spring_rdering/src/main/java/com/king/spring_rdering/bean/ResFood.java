@@ -28,4 +28,16 @@ public class ResFood implements Serializable {
     private BigDecimal realprice;//:现价
     private String description;//:简介
     private String detail;//详细的
+
+    @Override
+    public String toString() {
+        return "ResFood{" +
+                "fid=" + fid +
+                ", fname='" + fname + '\'' +
+                ", normprice=" + normprice +
+                ", realprice=" + realprice +
+                ", description='" + description + '\'' +
+                ", detail='" + detail + '\'' +
+                '}' + '\n';
+    }
 }

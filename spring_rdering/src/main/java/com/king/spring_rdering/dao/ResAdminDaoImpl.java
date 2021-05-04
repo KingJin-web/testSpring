@@ -3,6 +3,7 @@ package com.king.spring_rdering.dao;
 import com.king.spring_rdering.bean.ResAdmin;
 import com.king.spring_rdering.mapper.ResAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -20,6 +21,8 @@ public class ResAdminDaoImpl implements ResAdminDao {
     @Autowired
     private ResAdminRepository resAdminRepository;
 
+    Example<ResAdmin> em;
+
     @Override
     public ResAdmin findById(int id) {
 
@@ -30,5 +33,17 @@ public class ResAdminDaoImpl implements ResAdminDao {
         resAdmin.setRapwd("aaaa");
         return resAdminRepository.saveAndFlush(resAdmin);
 
+    }
+
+    @Override
+    public boolean login(ResAdmin resAdmin) {
+        em = Example.of(resAdmin);
+
+        return resAdminRepository.findAll(em).size() == 1;
+    }
+
+    @Override
+    public  ResAdmin update(ResAdmin resAdmin) {
+       return resAdminRepository.save(resAdmin);
     }
 }

@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="helloworld" />
         <module name="spring_rdering" />
         <module name="testmystarter" />
         <module name="homework" />
@@ -22,7 +23,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Hellostarter" target="1.8" />
-      <module name="mybatis" target="1.8" />
+      <module name="mybatis" target="8" />
       <module name="printbook_bank" target="1.8" />
       <module name="spring1_helloword" target="8" />
       <module name="spring7_2_tx" target="1.8" />
@@ -35,6 +36,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Hellostarter" options="-parameters" />
+      <module name="helloworld" options="-parameters" />
       <module name="mybank" options="-parameters" />
       <module name="mybatis" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />

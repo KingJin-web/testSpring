@@ -1,9 +1,9 @@
 package com.king.spring_rdering.bean;
 
 import lombok.Data;
+import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -14,9 +14,12 @@ import java.io.Serializable;
  */
 @Data
 @Entity
+@Table(name="ResUser")
+@Proxy(lazy = false)
 public class ResUser implements Serializable {
     private static final long serialVersionUID = -3532352203559882495L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userid;
     private String username;
     private String pwd;
