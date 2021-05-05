@@ -3,9 +3,7 @@ package com.king.spring_rdering.bean;
 import lombok.Data;
 import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -23,6 +21,7 @@ import java.util.Date;
 public class ResOrder implements Serializable {
     private static final long serialVersionUID = 1381107447916970085L;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roid;//订单号
     private Integer userid;//外键，下单的用户编号
     private String address;

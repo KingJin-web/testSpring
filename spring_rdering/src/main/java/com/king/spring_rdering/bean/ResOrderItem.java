@@ -1,9 +1,9 @@
 package com.king.spring_rdering.bean;
 
 import lombok.Data;
+import org.hibernate.annotations.Proxy;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
@@ -14,9 +14,13 @@ import java.math.BigDecimal;
  */
 @Data
 @Entity
+@Table(name = "ResOrderItem")
+@Proxy(lazy = false)
 public class ResOrderItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roiid;
+
     private Integer roid;
     private Integer fid;
     private BigDecimal dealprice;

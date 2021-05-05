@@ -18,7 +18,7 @@ public class ResFoodDaoImplTest {
 
     @Test
     public void findAll() {
-       // System.out.println(resFoodDao.findAll());
+        System.out.println(resFoodDao.findAll());
         System.out.println(resFoodDao.findAll(1,5));
         System.out.println(resFoodDao.findAll(2,5)); ;
         System.out.println(resFoodDao.findAll(3,5));;
@@ -29,7 +29,10 @@ public class ResFoodDaoImplTest {
     public void findByName() {
         System.out.println(resFoodDao.findByName("素炒莴笋丝"));
     }
-
+    @Test
+    public void findByFid() {
+        System.out.println(resFoodDao.findByFid(13));
+    }
     @Test
     public void update() {
     }

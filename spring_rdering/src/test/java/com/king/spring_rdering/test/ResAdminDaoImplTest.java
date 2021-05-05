@@ -37,7 +37,7 @@ public class ResAdminDaoImplTest {
 
         ResAdmin admin = new ResAdmin();
         admin.setRaid(4);
-        admin.setRaname("蔡徐坤");
+        admin.setRaname("aaaaaa");
         admin.setRapwd("aaaaaa");
         System.out.println(resAdminDao.update(admin));
     }
