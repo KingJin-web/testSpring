@@ -68,6 +68,7 @@ public class ResUserController {
         // resUserDao.login(u);
         if (resUserDao.login(u)) {
             //保存这个用户：在数据库中保存用户状态
+            //TODO 更好的方案是使用一个数据库/Redis 来储存
             session.setAttribute(LOGINUSER, u);
             jm.setCode(1);
             //再看地址

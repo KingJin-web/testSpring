@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    username: a
+    password: a
+    url: jdbc:mysql://121.40.43.208:3306/ordercase?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8
+    driver-class-name: com.mysql.jdbc.Driver

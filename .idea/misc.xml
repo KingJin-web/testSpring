@@ -11,6 +11,7 @@
         <option value="$PROJECT_DIR$/testmysqlstarter/pom.xml" />
         <option value="$PROJECT_DIR$/mybank/pom.xml" />
         <option value="$PROJECT_DIR$/spring_rdering/pom.xml" />
+        <option value="$PROJECT_DIR$/orderspringbootcase/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

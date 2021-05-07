@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>小萌神订餐网</title>
+	<!-- 图标 -->
+	<link rel="short icon" href="image/eat0.ico" />
+	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" href="//unpkg.com/layui@2.6.5/dist/css/layui.css">
+</head>
+<body>
+<div id="ss">
+
+	<table class="layui-table">
+		<colgroup>
+			<col width="150">
+			<col width="200">
+			<col>
+		</colgroup>
+
+		<thead>
+		<tr>
+			<th>编号</th>
+			<th>菜品名称</th>
+			<th>数量</th>
+			<th>单价</th>
+			<th>小结</th>
+			<th>操作</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr v-for="cartfoodinfo in cartfoodsinfo">
+			<td>{{cartfoodinfo.roitid}}</td>
+			<td>{{cartfoodinfo.fname}}</td>
+			<td>
+				<input type="button" value="-" @click="divnum(cartfoodinfo.roitid)">
+				{{cartfoodinfo.num}}
+				<input type="button" value="+" @click="sumnum(cartfoodinfo.roitid)">
+			</td>
+			<td>{{cartfoodinfo.realprice}}</td>
+			<td>{{cartfoodinfo.total}}</td>
+			<td>
+				<input v-model="mm"
+					   type="checkbox"
+					   :value="cartfoodinfo.roitid">
+				<a href="" @click="delfoods(cartfoodinfo.roitid)">删除</a>
+
+			</td>
+		</tr>
+
+		</tbody>
+	</table>
+	<div class="shoppingcar">
+		<div class="carprice">￥{{sum}}</div>
+		<div class="carinfo" @click="showboard()">结算</div>
+	</div>
+
+	<!-- 订单信息 -->
+	<div class="login" id="myinfo" v-if="orderflag">
+		<span id="unshowinfo">X</span>
+		<form name="forminfo">
+			<table>
+				<tr>
+					<td class="labname"><label for="address">送货地址:</label></td>
+					<td><input v-model="address" name="address" type="text" placeholder="请输入送货地址" id="address"/></td>
+				</tr>
+				<tr>
+					<td class="labname"><label for="tel">联系电话:</label></td>
+					<td><input v-model="tel" type="text" id="tel" placeholder="请输入联系电话" name="tel"/></td>
+				</tr>
+				<tr>
+					<td class="labname"><label for="ps">附言:</label></td>
+					<td><input v-model="ps" type="text" id="ps" placeholder="请输入附言" name="ps"/></td>
+				</tr>
+			</table>
+		</form>
+		<input type="button" value="提交" class="btn" id="submit" @click="orderfoods()">
+	</div>
+</div>
+
+
+
+<!--  在网页里面引入javascript    jquery:DOM   大家注意顺序  -->
+<script src="/js/jquery-1.9.1.js"></script>
+<script src="/js/vue.js"></script>
+<script src="/js/axios.js"></script>
+<script type="text/javascript">
+	var v=new Vue({
+		el:"#ss",
+		data:{
+			cartfoodsinfo:[],
+			mm:[],
+			orderflag:false,
+			address:"",
+			tel:"",
+			ps:"",
+
+
+		},
+		mounted(){
+			axios.post("/o/t2").then(res=>{
+				this.cartfoodsinfo=res.data.data;
+				console.info(res.data.data);
+			});
+		},
+		methods:{
+			divnum(roitid){
+				var p=new  URLSearchParams();
+				p.append("roitid",roitid);
+				axios.post("/o/t3",p).then(res=>{
+					if(res.data.msg=="修改失败"){
+						alert(res.data.msg);
+					}else {
+						window.location.reload();
+					}
+
+				});
+			},
+
+			sumnum(roitid){
+				var p=new  URLSearchParams();
+				p.append("roitid",roitid);
+				axios.post("/o/t4",p).then(res=>{
+					if(res.data.msg=="修改失败"){
+						alert(res.data.msg);
+					}else {
+						window.location.reload();
+					}
+
+				});
+			},
+
+			showboard(){
+				if(this.mm.length==0){
+					this.orderflag=false;
+					alert("请先选中你要下单的菜品");
+				}else{
+					/*console.info(this.mm);
+					alert(this.mm);*/
+					this.orderflag=true;
+				}
+
+			},
+
+			orderfoods(){
+				var params=new URLSearchParams();
+				params.append("address",this.address);
+				params.append("tel",this.tel);
+				params.append("ps",this.ps);
+				params.append("roitid",this.mm)
+				axios.post("/o/t1",params).then(res=>{
+					if(res.data.msg=="下单成功"){
+						alert(res.data.msg);
+						window.location.reload();
+					}else{
+						alert(res.data.msg);
+					}
+				});
+			},
+
+			delfoods(roitid){
+				var p=new URLSearchParams();
+				p.append("roitid",roitid)
+				axios.post("/o/t5",p).then(res=>{
+					if(res.data.msg=="删除成功"){
+						alert(res.data.msg);
+						window.location.reload();
+					}else {
+						alert(res.data.msg);
+					}
+				});
+			}
+
+		},
+		computed:{
+			sum(){
+				var all=0;
+				for(var i=0;i<this.cartfoodsinfo.length;i++){
+					for(var j=0;j<this.mm.length;j++){
+						if(this.cartfoodsinfo[i].roitid==this.mm[j]){
+							all+=this.cartfoodsinfo[i].total;
+						}
+					}
+				}
+
+				return all;
+			}
+		},
+
+	});
+
+</script>
+
+</body>
+</html>

@@ -12,9 +12,10 @@
         <module name="testmystarter" />
         <module name="homework" />
         <module name="spring4_aop" />
-        <module name="spring6_selfaop_cglibproxy" />
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
+        <module name="orderspringbootcase" />
+        <module name="spring6_selfaop_cglibproxy" />
         <module name="springboot_helloworld" />
         <module name="testmysqlstarter" />
         <module name="spring5_selfaop_jdkproxy" />
@@ -39,6 +40,7 @@
       <module name="helloworld" options="-parameters" />
       <module name="mybank" options="-parameters" />
       <module name="mybatis" options="-parameters" />
+      <module name="orderspringbootcase" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />
       <module name="spring_rdering" options="-parameters" />
       <module name="springboot1" options="-parameters" />
