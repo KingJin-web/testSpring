@@ -3,7 +3,6 @@ package com.king.spring_rdering.test;
 import com.king.spring_rdering.bean.ResOrder;
 import com.king.spring_rdering.dao.ResFoodDao;
 import com.king.spring_rdering.dao.ResOrderDao;
-import com.king.spring_rdering.enums.OrderStatusEnum;
 import com.king.spring_rdering.vo.CartItem;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,14 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.xml.crypto.Data;
-
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -48,7 +43,7 @@ public class ResOrderDaoImplTest {
     public void completeOrder() {
         ResOrder resOrder = new ResOrder();
         resOrder.setUserid(1);
-        resOrder.setStatus(OrderStatusEnum.NEW.getCode());
+        resOrder.setStatus(0);
         resOrder.setTel("123456789");
         resOrder.setAddress("Address");
         resOrder.setPs("aa");

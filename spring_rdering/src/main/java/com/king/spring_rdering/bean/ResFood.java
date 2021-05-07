@@ -28,6 +28,7 @@ public class ResFood implements Serializable {
     private BigDecimal realprice;//:现价
     private String description;//:简介
     private String detail;//详细的
+    private String fphoto;
 
     @Override
     public String toString() {

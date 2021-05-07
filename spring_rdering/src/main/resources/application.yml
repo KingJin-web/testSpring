@@ -26,3 +26,6 @@ logging:
   file:
     path: ./logs
     name: yc_mybank.log
+
+swagger:
+  enabled: true
