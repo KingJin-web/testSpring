@@ -1,0 +1,306 @@
+@CHARSET "UTF-8";
+/* 清除浏览器的默认样式 */
+*{
+	padding:0px;
+	margin:0px auto;
+}
+
+/*整个网页的背景*/
+body{
+	width:100%;
+	height:100%;
+	background:url(../image/bg.jpg) no-repeat;
+	background-size:100% 100%;
+	background-attachment:fixed;
+}
+
+.head{
+	width:100%;
+	background:rgba(45,154,152,0.8);
+	/* 固定布局 */
+	position:fixed;
+	/* 布局之后，都需要定义位置 */
+	top:0px;
+	/*更改文字相关的样式*/
+	text-align:center;
+	line-height:60px;
+	color:#fff;
+	font-size:22px;
+	font-weight:bold;
+}
+.head .right{
+	/* 绝对定位 */
+	position:absolute;
+	top:0px;
+	right:150px;
+}
+/* 伪类，当鼠标一上去的时候，触发样式 */
+.head .right:hover{
+	text-decoration:underline;
+	cursor:pointer;		/* 改变鼠标的手势 */
+}
+
+.content{
+	width:40%;
+	margin-left:200px;
+	margin-bottom:100px;
+	margin-top:100px;
+	/* 圆角 */
+	border-radius:15px;
+}
+.allfoods{
+	list-style:none;		/* 去掉ul的默认样式 */
+}
+.allfoods li h3{
+	color:white;
+	font-size:16px;
+	text-align:center;
+	line-height:50px;
+	background:rgba(45,154,152,0.8);
+}
+/* 第一个li */
+.allfoods li:first-child h3{
+	border-radius:15px 15px 0 0;
+}
+.allfoods li:last-child h3{
+	border-radius:0 0 15px 15px;
+}
+
+.allfoods li h3:hover{
+	background:rgba(45,154,152,0.9);
+}
+.fooddesc{
+	width:100%;
+	height:200px;
+	position:relative;		/*相对布局*/
+	background:rgba(45,154,152,0.4);
+	padding:65px 0 25px 0;		/* 上  右   下   左 */
+}
+.normalprice{
+	text-decoration:line-through;
+}
+.realprice{
+	color:red;
+}
+.buybtn{
+	position:absolute;
+	left:60px;
+	bottom:-40px;
+	width:100px;
+	line-height:30px;
+	text-align:center;
+	background:skyblue;
+	border-radius:15px;
+	font-size:14px;
+}
+
+.fooddesc img{
+	width:200px;
+	height:150px;
+	position:absolute;
+	left:30%;
+	border-radius:15px;
+	/*过渡        所有的过渡效果，在0.5秒钟之内，以平稳的速度完成*/
+	transition:all 0.5s linear;
+}
+
+
+.foodprice{
+	position:relative;
+	text-align:left;
+	line-height:30px;
+	padding-left:60px;
+	font-size:16px;
+	color:white;
+	transition:all 0.5s linear;
+	opacity:0;
+}
+
+.fooddesc:hover img{
+	left:50%;
+}
+.fooddesc:hover .foodprice{
+	opacity:100;
+}
+
+
+
+.look{
+	width:350px;
+	height:65px;
+	background:rgba(45,154,152,0.8);
+	position:fixed;
+	top:100px;
+	right:0px;
+	border-radius:15px;
+	font-size:20px;
+	color:white;
+	text-align:center;
+	padding-top:20px;
+}
+
+.shoppingcar{
+	width:350px;
+	height:50px;
+	position:fixed;
+	bottom:0px;
+	right:0px;
+}
+
+.carbag{
+	position:fixed;
+	right:0px;
+	bottom:-300px;
+	width:350px;
+	background:#fff;
+	
+	transition:all 0.8s linear;
+}
+.carbag p{
+	font-size:16px;
+	padding-left:20px;
+	line-height:40px;
+	border-bottom:1px solid #0089DC;
+	border-top:1px solid #0089DC;
+}
+.carbag p span{
+	color:#4E89E1;
+	margin-left:10px;
+	cursor:pointer;
+}
+.carbag table{
+	display:block;
+	width:100%;
+	height:260px;
+	text-align:center;
+	color:#666;
+	border:none;
+}
+#bagcontent tr{
+	width:350px;
+	height:40px;
+	margin:5px 10px 10px 10px;
+	border-bottom:1px solid #0089DC;
+}
+#bagcontent tr .bagfname{
+	width:40%;
+	height:40px;
+	line-height:40px;
+	padding-left:20px;
+}
+#bagcontent tr .bagnum{
+	width:40%;
+	height:40px;
+	line-height:40px;
+}
+#bagcontent tr .bagnum button{
+	width:40px;
+	height:25px;
+}
+#bagcontent tr .bagnum span{
+	margin:0px 10px;
+}
+#bagcontent tr .bagprice{
+	width:20%;
+	padding-right:20px;
+}
+
+.carprice{
+	width:50%;
+	height:100%;
+	background:url(../image/car.png) no-repeat 15px center;
+	background-color:black;
+	color:white;
+	font-size:30px;
+	position:absolute;
+	bottom:0;
+	right:175px;
+	text-align:center;
+	line-height:50px;
+	cursor:pointer;
+}
+.carinfo{
+	width:50%;
+	height:100%;
+	background:white;
+	text-align:center;
+	line-height:50px;
+	position:absolute;
+	right:0;
+	bottom:0;
+}
+
+.footer{
+	width:70%;
+	height:50px;
+	text-align:center;
+	color:white;
+	font-size:14px;
+	padding-top:10px;
+	
+}
+
+.login{
+	width:30%;
+	position:fixed;
+	top:20%;
+	left:35%;
+	border-radius:15px;
+	text-align:center;
+	background:rgba(0,0,0,0.8);
+}
+.login span{
+	/* 右浮动，居右显示 */
+	float:right;
+	display:block;
+	margin:10px;
+	color:#fff;
+	width:25px;
+	height:25px;
+	line-height:25px;
+	border:1px #fff solid; 
+	border-radius:50%;		/* 50%的圆角，就是一个圆 */
+}
+.login span:hover{
+	color:red;
+	cursor:pointer;
+}
+.login form{
+	margin-top:15px;
+	margin-bottom:0px;
+}
+.login form tr{
+	display:block;
+	width:100%;
+	color:#ccc;
+	margin:20px 0 0 30px;
+	border-bottom:1px solid #666;
+}
+.login .labname{
+	width:80px;
+}
+.login form tr input{
+	width:200px;
+	height:30px;
+	margin:12px;
+	padding:5px;
+	border:0;			/* 去掉边框和背景颜色 */
+	background:none;
+	color:#fff;
+}
+.login form tr #yzm{
+	width:130px;
+}
+.login .btn{
+	width:100%;
+	color:#fff;
+	font-size:30px;
+	height:60px;
+	line-height:60px;
+	text-align:center;
+	background:#3EA751;
+	border:0;
+	padding:0px;
+	border-radius:0 0 15px 15px;
+	cursor:pointer;
+}

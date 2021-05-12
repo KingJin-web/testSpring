@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>小萌神订餐网</title>
+<!-- 图标 -->
+<link rel="short icon" href="image/eat0.ico" />
+<link rel="stylesheet" href="css/index.css" />
+</head>
+<body>
+ 
+  <div id="app">
+ 
+	<div class="head">
+		小萌神订餐网
+		<div class="right">
+			<span class="showlogin" id="showlogin">登录</span>
+			<span id="exitspan" style="display:none"></span>
+		</div>
+	</div>
+	<div class="content">
+		<ul class="allfoods" id="allfoods">
+			<li>
+				<h3>素炒莴笋丝</h3>
+				<div class="fooddesc" style="display:none">
+					<img src="image/bg.jpg" class="foodimg" />
+					<article class="foodprice">
+						<p>菜品描述：无</p>
+						<p class="normalprice">原价：￥22</p>
+						<p class="realprice">特价：￥20</p>
+						<p class="buybtn">加入购物车</p>
+					</article>
+				</div>
+			</li>
+			<li>
+				<h3>荷叶饭</h3>
+				<div class="fooddesc" style="display:none">
+					<img src="image/bg.jpg" class="foodimg" />
+					<article class="foodprice">
+						<p>菜品描述：无</p>
+						<p class="normalprice">原价：￥22</p>
+						<p class="realprice">特价：￥20</p>
+						<p class="buybtn">加入购物车</p>
+					</article>
+				</div>
+			</li>
+			<li>
+				<h3>花椰菜</h3>
+				<div class="fooddesc" style="display:none">
+					<img src="image/bg.jpg" class="foodimg" />
+					<article class="foodprice">
+						<p>菜品描述：无</p>
+						<p class="normalprice">原价：￥22</p>
+						<p class="realprice">特价：￥20</p>
+						<p class="buybtn">加入购物车</p>
+					</article>
+				</div>
+			</li>
+			<li>
+				<h3>小葱拌豆腐</h3>
+				<div class="fooddesc" style="display:none">
+					<img src="image/bg.jpg" class="foodimg" />
+					<article class="foodprice">
+						<p>菜品描述：无</p>
+						<p class="normalprice">原价：￥22</p>
+						<p class="realprice">特价：￥20</p>
+						<p class="buybtn">加入购物车</p>
+					</article>
+				</div>
+			</li>
+			<li>
+				<h3>辣子鸡丁</h3>
+				<div class="fooddesc" style="display:none">
+					<img src="image/bg.jpg" class="foodimg" />
+					<article class="foodprice">
+						<p>菜品描述：无</p>
+						<p class="normalprice">原价：￥22</p>
+						<p class="realprice">特价：￥20</p>
+						<p class="buybtn">加入购物车</p>
+					</article>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!--  <div class="look">浏览记录</div> -->
+	<div class="shoppingcar">
+		<div class="carbag" id="carbag">
+			<p>购物车<span id="del">[清空]</span></p>
+			<table id="bagcontent" cellpadding="0" cellspacing="0">
+				
+			</table>
+		</div>
+		<div class="carprice">￥0</div>
+		<div class="carinfo">购物车是空的</div>
+	</div>
+	<div class="footer">
+		Copyright © 2016 Xiaomengsheng Incorporated Company. All rights reserved.
+		<br />
+		订餐，就上小萌神订餐网!
+	</div>
+
+	<div class="login" id="login" v-if="loginflag">
+		<span id="unshow">X</span>
+		<form name="myform">
+			<table>
+				<tr>
+					<td class="labname"><label for="username">用户名：</label></td>
+					<td><input type="text" name="username" placeholder="请输入用户名" 
+					id="username" /></td>
+				</tr>
+				<tr>
+					<td class="labname"><label for="pwd">密码：</label></td>
+					<td><input type="password" name="pwd" placeholder="请输入密码" 
+					id="pwd" /></td>
+				</tr>
+				<tr>
+					<td class="labname"><label for="yzm">验证码：</label></td>
+					<td><input type="text" name="yzm" placeholder="请输入验证码" 
+					id="yzm" /></td>
+					<td><img src="http://localhost/resCopy/verifyCodeServlet" 
+					id="yzm_img" /></td>
+				</tr>
+			</table>
+		</form>
+		<input type="button" value="login" class="btn" id="btn" />
+	</div>
+	
+	    <!-- 订单信息 -->
+		<div class="login" id="myinfo" v-if="orderflag">
+			<span id="unshowinfo" >X</span>
+			<form name="forminfo">
+				<table>
+					<tr>
+						<td class="labname"><label for="address">送货地址:</label></td>
+						<td><input name="address"  type="text" placeholder="请输入送货地址" id="address" /></td>
+					</tr>
+					<tr>
+						<td class="labname"><label for="tel">联系电话:</label></td>
+						<td><input type="text"  id="tel" placeholder="请输入联系电话" name="tel" /></td>
+					</tr>
+					<tr>
+						<td class="labname"><label for="deliverytime">送货时间:</label></td>
+						<td><input type="text"  name="deliverytime" id="deliverytime" placeholder="请输入送货时间（默认马上发货）" /></td>
+					</tr>
+					<tr>
+						<td class="labname"><label for="ps">附言:</label></td>
+						<td><input type="text" id="ps" placeholder="请输入附言" name="ps" /></td>
+					</tr>
+				</table>
+			</form>
+			<input type="button" value="提交" class="btn"  id="submit">
+		</div>
+		
+</div>
+
+	<!--  在网页里面引入javascript    jquery:DOM   大家注意顺序  -->
+	<script src="js/jquery-1.9.1.js"></script>
+	<script src="js/vue.js"></script>
+	<script src="js/axio.js"></script>
+	<script type="text/javascript">
+	     let vm=new Vue({
+	    	 el:"#app",
+	    	 data:{
+	    		 orderflag:false,     //送货地址div
+	    		 loginflag:false      
+	    	 }
+	     });
+	</script>
+	
+</body>
+</html>
