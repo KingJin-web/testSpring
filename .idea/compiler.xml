@@ -8,13 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="helloworld" />
+        <module name="res" />
         <module name="spring_rdering" />
         <module name="testmystarter" />
         <module name="homework" />
         <module name="spring4_aop" />
         <module name="spring1_helloworld" />
         <module name="spring3_myspringfarmework" />
+        <module name="bank" />
         <module name="orderspringbootcase" />
+        <module name="springredis" />
         <module name="spring6_selfaop_cglibproxy" />
         <module name="springboot_helloworld" />
         <module name="testmysqlstarter" />
@@ -23,6 +26,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="autoRefreshCSDN" target="1.8" />
       <module name="Hellostarter" target="1.8" />
       <module name="mybatis" target="8" />
       <module name="printbook_bank" target="1.8" />
@@ -37,16 +41,19 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Hellostarter" options="-parameters" />
+      <module name="bank" options="-parameters" />
       <module name="helloworld" options="-parameters" />
       <module name="mybank" options="-parameters" />
       <module name="mybatis" options="-parameters" />
       <module name="orderspringbootcase" options="-parameters" />
       <module name="printbook_bank" options="-parameters" />
+      <module name="res" options="-parameters" />
       <module name="spring_rdering" options="-parameters" />
       <module name="springboot1" options="-parameters" />
       <module name="springboot_bank" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
       <module name="springmybank" options="-parameters" />
+      <module name="springredis" options="-parameters" />
       <module name="testmysqlstarter" options="-parameters" />
       <module name="testmystarter" options="-parameters" />
     </option>

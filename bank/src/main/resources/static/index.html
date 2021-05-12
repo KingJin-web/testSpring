@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>银行ATM业务</title>
+
+    <style>
+        .err {
+            color: red;
+            font-weight: bold;
+        }
+
+        .point {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+<body>
+
+<div id="app">
+    <form action="" method="post">
+        账号:<input type="text" name="accountId" v-model="accountId"><br>
+        操作金额:<input type="text" name="money" v-model="money"><br>
+        转入账号:<input type="text" name="inAccountId" v-model="inAccountId"><br>
+        <input type="button" value="开户" class="btn" @click="openAccounts()">
+        <input type="button" value="存款" class="btn" @click="deposite()">
+        <input type="button" value="取款" class="btn" @click="withdraw()">
+        <input type="button" value="转账" class="btn" @click="transfer()">
+        <input type="button" value="查询" class="btn" @click="showBalance()">
+
+        <div id="result" v-html="result"></div>
+    </form>
+</div>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.js"></script>
+
+<script>
+    let vm = new Vue({
+        el: "#app",
+        data: {
+            accountId: "",
+            money: 0.0,
+            inAccountId: "",
+            result: ""
+        },
+        methods: {
+            openAccounts: function () {
+
+                var params = new URLSearchParams();
+                params.append("money", this.money);
+                axios.post("/mybank/openAccounts", params).then(res => {
+                    if (res.data.code == 1) {
+                        this.result = "新开账号:<span class='point'>" + res.data.data.accountId + "</span>,余额为:<span class='point'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>";
+                    }
+                }).catch(function (error) {//请求过程失败
+                    this.result = "<span class='sp'>" + error + "</span>";
+                })
+            },
+
+            deposite: function () {
+
+                var params = new URLSearchParams();
+                params.append("accountId", this.accountId);
+                params.append("money", this.money);
+                axios.post("/mybank/deposite", params).then(res => {
+                    if (res.data.code == 1) {
+                        this.result = "账号:<span class='point'>" + res.data.data.accountId + "</span>余额为:<span class='point'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>";
+                    }
+                }).catch(function (error) {//请求过程失败
+                    this.result = "<span class='sp'>" + error + "</span>";
+                })
+            },
+
+            withdraw: function () {
+
+                var params = new URLSearchParams();
+                params.append("accountId", this.accountId);
+                params.append("money", this.money);
+                axios.post("/mybank/withdraw", params).then(res => {
+                    if (res.data.code == 1) {
+                        this.result = "账号:<span class='point'>" + res.data.data.accountId + "</span>余额为:<span class='point'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>";
+                    }
+                }).catch(function (error) {//请求过程失败
+                    this.result = "<span class='sp'>" + error + "</span>";
+                })
+            },
+
+            transfer: function () {
+
+                var params = new URLSearchParams();
+                params.append("accountId", this.accountId);
+                params.append("money", this.money);
+                params.append("inAccountId", this.inAccountId);
+                axios.post("/mybank/transfer", params).then(res => {
+                    if (res.data.code == 1) {
+                        this.result = "账号:<span class='point'>" + res.data.data.accountId + "</span>余额为:<span class='point'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>";
+                    }
+                }).catch(function (error) {//请求过程失败
+                    this.result = "<span class='sp'>" + error + "</span>";
+                })
+            },
+
+            showBalance: function () {
+
+                var params = new URLSearchParams();
+                params.append("accountId", this.accountId);
+                axios.post("/mybank/showBalance", params).then(res => {
+                    if (res.data.code == 1) {
+                        this.result = "账号:<span class='point'>" + res.data.data.accountId + "</span>余额为:<span class='point'>" + res.data.data.balance + "</span>";
+                    } else {
+                        this.result = "<span class='error'>" + res.data.msg + "</span>";
+                    }
+                }).catch(function (error) {//请求过程失败
+                    this.result = "<span class='sp'>" + error + "</span>";
+                })
+            },
+        }
+    });
+</script>
+
+</body>
+</html>

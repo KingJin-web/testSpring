@@ -12,10 +12,14 @@
         <option value="$PROJECT_DIR$/mybank/pom.xml" />
         <option value="$PROJECT_DIR$/spring_rdering/pom.xml" />
         <option value="$PROJECT_DIR$/orderspringbootcase/pom.xml" />
+        <option value="$PROJECT_DIR$/springredis/pom.xml" />
+        <option value="$PROJECT_DIR$/res/pom.xml" />
+        <option value="$PROJECT_DIR$/bank/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/autoRefreshCSDN/pom.xml" />
         <option value="$PROJECT_DIR$/mybatis/pom.xml" />
         <option value="$PROJECT_DIR$/spring7_2_tx/pom.xml" />
         <option value="$PROJECT_DIR$/spring7_tx/pom.xml" />

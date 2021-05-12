@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 60000
+    context-path: /myres
+
+logging:
+  level:
+    root: warn
+    com.ex: info
+    org.springframework: warn
+  file:
+    name: ./log/res.log
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/res?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: aaaa
+
+  jpa:
+    show-sql: true
+    database: mysql
+    properties:
+      hibernate:
+        format-sql: true
+
+swagger:
+  enabled: true
