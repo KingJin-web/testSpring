@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9090
   servlet:
     session:
       timeout: 60000
@@ -18,7 +18,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/res?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: aaaa
+    password: a
 
   jpa:
     show-sql: true

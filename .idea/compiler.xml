@@ -22,6 +22,7 @@
         <module name="springboot_helloworld" />
         <module name="testmysqlstarter" />
         <module name="spring5_selfaop_jdkproxy" />
+        <module name="springmongodb" />
         <module name="mybank" />
       </profile>
     </annotationProcessing>
@@ -52,6 +53,7 @@
       <module name="springboot1" options="-parameters" />
       <module name="springboot_bank" options="-parameters" />
       <module name="springboot_helloworld" options="-parameters" />
+      <module name="springmongodb" options="-parameters" />
       <module name="springmybank" options="-parameters" />
       <module name="springredis" options="-parameters" />
       <module name="testmysqlstarter" options="-parameters" />

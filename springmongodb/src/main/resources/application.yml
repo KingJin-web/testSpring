@@ -1,0 +1,18 @@
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://www.wuzhaoqi.top:27017/user
+##      username: user
+##      password: password
+##      password: 123456
+##      username: root
+#
+#logging:
+#  level:
+#    org.springframework.data.mongodb: debug
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://rf:rf@www.wuzhaoqi.top:27017/ch_user
+      #root是在test数据库下设置的用户名，123456是在test数据库下设置的密码

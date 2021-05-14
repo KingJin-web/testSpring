@@ -15,6 +15,7 @@
         <option value="$PROJECT_DIR$/springredis/pom.xml" />
         <option value="$PROJECT_DIR$/res/pom.xml" />
         <option value="$PROJECT_DIR$/bank/pom.xml" />
+        <option value="$PROJECT_DIR$/springmongodb/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

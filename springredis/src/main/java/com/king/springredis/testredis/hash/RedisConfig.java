@@ -14,6 +14,7 @@ import org.springframework.data.redis.serializer.RedisSerializer;
  * @create: 2021-05-08 20:44
  */
 @Configuration
+
 public class RedisConfig{
 //    @Bean
 //    public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory){
@@ -33,7 +34,7 @@ public class RedisConfig{
         RedisTemplate<Object, Object> template = new RedisTemplate<Object, Object>();
         template.setConnectionFactory(redisConnectionFactory);
 
-        RedisSerializer serializer = new FastJsonRedisSerializer(Object.class);
+        RedisSerializer<Object> serializer = new FastJsonRedisSerializer(Object.class);
         template.setKeySerializer(serializer);
         template.setValueSerializer(serializer);
         template.setHashKeySerializer(serializer);
