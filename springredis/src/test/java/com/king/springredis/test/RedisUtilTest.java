@@ -44,9 +44,9 @@ public class RedisUtilTest {
 
     @Test
     public void insert() {
-        redisUtil.insert("1", TimeHelp.nowTime());
-        //redisUtil.insert("2", 12);
-        redisUtil.num("2",15);
+        redisUtil.insert("nowTime", TimeHelp.nowTime());
+        redisUtil.insert("num1", 2);
+        //redisUtil.num("2",15);
     }
 
     @Test
