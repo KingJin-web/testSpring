@@ -156,6 +156,25 @@ public class RedisUtil {
     }
 
     /**
+     * 获取key 的值
+     *
+     * @param key
+     * @return
+     */
+    public Object getObject(String key) {
+        return  redisTemplate.boundValueOps(key).get();
+    }
+
+    /**
+     * 获取key 的值
+     *
+     * @param key
+     * @return
+     */
+    public Integer getInt(String key) {
+        return (Integer) redisTemplate.boundValueOps(key).get();
+    }
+    /*
      * key 存在且是数字值
      * 负数为减法 正数为加
      *

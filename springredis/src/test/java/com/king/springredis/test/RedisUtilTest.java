@@ -55,13 +55,28 @@ public class RedisUtilTest {
         System.out.println(redisUtil.getString("Hello"));
     }
 
+    @Test
+    public void get() {
+//        int a = Integer.parseInt(String.valueOf(redisUtil.getObject("Hello1")));
+//        System.out.println(a);
+//        int b = redisUtil.getInt("Hello1");
+//        System.out.println(b);
+        redisUtil.insert("test1", "123");
+        int a = Integer.parseInt(String.valueOf(redisUtil.getObject("test1")));
+        System.out.println(a);
+        String aa = "-123";
+        a = Math.toIntExact(redisUtil.num("test1", Integer.parseInt(aa)));
+        System.out.println(a);
+        a = Integer.parseInt(String.valueOf(redisUtil.getObject("test1")));
+        System.out.println(a);
+    }
 
     @Test
     public void add() {
         //redisTemplate.boundValueOps("StringKey").increment(3L);
         System.out.println(redisUtil.getString("Hello1"));
-        System.out.println( redisUtil.num("Hello1",15));
-        System.out.println(redisUtil.num("Hello1",15));
-        System.out.println(redisUtil.num("Hello1",-13));
+        System.out.println(redisUtil.num("Hello1", 15));
+        System.out.println(redisUtil.num("Hello1", 15));
+        System.out.println(redisUtil.num("Hello1", -13));
     }
 }
