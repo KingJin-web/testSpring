@@ -10,6 +10,4 @@ public class SpringredisApplication {
         SpringApplication.run(SpringredisApplication.class, args);
     }
 
-
-
 }

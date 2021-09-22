@@ -45,7 +45,8 @@ public class RedisUtilTest {
     @Test
     public void insert() {
         redisUtil.insert("nowTime", TimeHelp.nowTime());
-        redisUtil.insert("num1", 2);
+        redisUtil.insert("num1", "大家迫a切");
+        redisUtil.insert("num2", "123a");
         //redisUtil.num("2",15);
     }
 
@@ -60,6 +61,7 @@ public class RedisUtilTest {
         //redisTemplate.boundValueOps("StringKey").increment(3L);
         System.out.println(redisUtil.getString("Hello1"));
         System.out.println( redisUtil.num("Hello1",15));
-        System.out.println(redisUtil.num("Hello1",15.55));
+        System.out.println(redisUtil.num("Hello1",15));
+        System.out.println(redisUtil.num("Hello1",-13));
     }
 }

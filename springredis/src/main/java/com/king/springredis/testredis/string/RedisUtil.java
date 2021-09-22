@@ -85,6 +85,7 @@ public class RedisUtil {
     public void insert(String key, String s) {
         redisTemplate.boundValueOps(key).set(s);
     }
+
     /**
      * 建一个string的键值对
      *
@@ -92,8 +93,9 @@ public class RedisUtil {
      * @param num
      */
     public void insert(String key, Object num) {
-        redisTemplate.boundValueOps(key).set(num,1);
+        redisTemplate.boundValueOps(key).set(num, 1);
     }
+
     /**
      * 建一个string的键值对
      *
